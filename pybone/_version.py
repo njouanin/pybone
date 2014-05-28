@@ -1,16 +1,38 @@
-import datetime
+"""
+Version information
+"""
+import asyncio
 import os
 import subprocess
-import asyncio
+import datetime
 
-# Version Management from https://gist.github.com/gilsondev/2790884
+loop = asyncio.get_event_loop()
+
+@asyncio.coroutine
+def _get_git_changeset():
+    """Returns a numeric identifier of the latest git changeset.
+
+    The result is the UTC timestamp of the changeset in YYYYMMDDHHMMSS format.
+    This value isn't guaranteed to be unique, but collisions are very unlikely,
+    so it's sufficient for generating the development version numbers.
+    """
+    repo_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    git_log = yield from asyncio.create_subprocess_shell('git log --pretty=format:%ct --quiet -1 HEAD',
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE, shell=True, cwd=repo_dir, universal_newlines=False)
+    (stdin, stderr) = yield from git_log.communicate()
+    try:
+        timestamp = datetime.datetime.utcfromtimestamp(int(stdin))
+    except ValueError:
+        return None
+    return timestamp.strftime('%Y%m%d%H%M%S')
+
+
 @asyncio.coroutine
 def _get_version(future, version):
     "Returns a PEP 386-compliant version number from VERSION."
-    assert len(version) == 5
-    assert version[3] in ('alpha', 'beta', 'rc', 'final')
 
-    # Now build the two parts of the version number:
+    # Bbuild the two parts of the version number:
     # main = X.Y[.Z]
     # sub = .devN - for pre-alpha releases
     # | {a|b|c}N - for alpha, beta and rc releases
@@ -31,22 +53,8 @@ def _get_version(future, version):
     future.set_result(str(main + sub))
 
 
-@asyncio.coroutine
-def _get_git_changeset():
-    """Returns a numeric identifier of the latest git changeset.
-
-    The result is the UTC timestamp of the changeset in YYYYMMDDHHMMSS format.
-    This value isn't guaranteed to be unique, but collisions are very unlikely,
-    so it's sufficient for generating the development version numbers.
-    """
-    repo_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    git_log = asyncio.create_subprocess_shell('git log --pretty=format:%ct --quiet -1 HEAD',
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE, shell=True, cwd=repo_dir, universal_newlines=True)
-    timestamp = git_log.communicate()[0]
-    try:
-        timestamp = datetime.datetime.utcfromtimestamp(int(timestamp))
-    except ValueError:
-        return None
-    return timestamp.strftime('%Y%m%d%H%M%S')
-
+def get_pretty_version(v):
+    future_version = asyncio.Future()
+    asyncio.Task(_get_version(future_version, v))
+    loop.run_until_complete(future_version)
+    return future_version.result()
