@@ -29,7 +29,7 @@ def _get_git_changeset():
 
 
 @asyncio.coroutine
-def _get_version(future, version):
+def _get_version(version):
     "Returns a PEP 386-compliant version number from VERSION."
 
     # Bbuild the two parts of the version number:
@@ -50,11 +50,9 @@ def _get_version(future, version):
         mapping = {'alpha': 'a', 'beta': 'b', 'rc': 'c'}
         sub = mapping[version[3]] + str(version[4])
 
-    future.set_result(str(main + sub))
+    return str(main + sub)
 
 
 def get_pretty_version(v):
-    future_version = asyncio.Future()
-    asyncio.Task(_get_version(future_version, v))
-    loop.run_until_complete(future_version)
-    return future_version.result()
+    pretty_version = loop.run_until_complete(_get_version(v))
+    return pretty_version
