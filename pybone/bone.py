@@ -4,7 +4,7 @@ import glob
 import os
 import logging
 import re
-from pybone.pin_desc import BBB_P8_DEF, BBB_P9_DEF, BBB_control_module_addr
+from pybone.pin_desc import BBB_P8_DEF, BBB_P9_DEF
 
 LOGGER = logging.getLogger(__name__)
 SYSFS = '/sys'
@@ -125,22 +125,11 @@ class Board(object):
         self.system = System()
         (self.board_name, self.board_revision, self.board_serial_number) = get_board_info(board_file_name, revision_file, serial_number_file)
         self.pins = BBB_P8_DEF.copy()
-        self.pins += BBB_P9_DEF.copy()
+        self.pins.append(BBB_P9_DEF.copy())
         self._update_from_pinmux(pins_file)
 
     def _update_from_pinmux(self, pins_file=None):
         pinmux_info = list(parse_pinmux(pins_file))
         for pin in self.pins:
-            #loop for each pin having a driver configuration
-            if pin['driver_pin'] != None:
-                #find configuration read from pinmux
-                pinmux = [item for item in pinmux_info if item['index'] == pin['driver_pin']]
-                if len(pinmux) == 0:
-                    LOGGER.warning("Pin '%s' was not found in pinmux configuration." % pin['key'])
-                else:
-                    pin_address = BBB_control_module_addr+pin['reg_offset'];
-                    if pinmux[0]['address'] == BBB_control_module_addr+pin['reg_offset']:
-                        pin['address'] = pin_address
-                        pin['reg_conf'] = pinmux[0]['reg']
-                    else:
-                        LOGGER.fatal("Pin '%s' address configuration '%x' doesn't match physical address '%x" % (pin['address'], pinmux[0]['address']))
+            pinmux = [item for item in pinmux_info if item['index'] == pin['driver_pin']]
+            pin['current_conf'] = pinmux[0]
