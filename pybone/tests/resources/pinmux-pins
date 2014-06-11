@@ -1,0 +1,144 @@
+Pinmux settings per pin
+Format: pin (name): mux_owner gpio_owner hog?
+pin 0 (44e10800): mmc.10 (GPIO UNCLAIMED) function pinmux_emmc2_pins group pinmux_emmc2_pins
+pin 1 (44e10804): mmc.10 (GPIO UNCLAIMED) function pinmux_emmc2_pins group pinmux_emmc2_pins
+pin 2 (44e10808): mmc.10 (GPIO UNCLAIMED) function pinmux_emmc2_pins group pinmux_emmc2_pins
+pin 3 (44e1080c): mmc.10 (GPIO UNCLAIMED) function pinmux_emmc2_pins group pinmux_emmc2_pins
+pin 4 (44e10810): mmc.10 (GPIO UNCLAIMED) function pinmux_emmc2_pins group pinmux_emmc2_pins
+pin 5 (44e10814): mmc.10 (GPIO UNCLAIMED) function pinmux_emmc2_pins group pinmux_emmc2_pins
+pin 6 (44e10818): mmc.10 (GPIO UNCLAIMED) function pinmux_emmc2_pins group pinmux_emmc2_pins
+pin 7 (44e1081c): mmc.10 (GPIO UNCLAIMED) function pinmux_emmc2_pins group pinmux_emmc2_pins
+pin 8 (44e10820): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 9 (44e10824): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 10 (44e10828): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 11 (44e1082c): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 12 (44e10830): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 13 (44e10834): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 14 (44e10838): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 15 (44e1083c): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 16 (44e10840): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 17 (44e10844): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 18 (44e10848): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 19 (44e1084c): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 20 (44e10850): rstctl.3 (GPIO UNCLAIMED) function pinmux_rstctl_pins group pinmux_rstctl_pins
+pin 21 (44e10854): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 22 (44e10858): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 23 (44e1085c): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 24 (44e10860): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 25 (44e10864): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 26 (44e10868): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 27 (44e1086c): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 28 (44e10870): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 29 (44e10874): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 30 (44e10878): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 31 (44e1087c): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 32 (44e10880): mmc.10 (GPIO UNCLAIMED) function pinmux_emmc2_pins group pinmux_emmc2_pins
+pin 33 (44e10884): mmc.10 (GPIO UNCLAIMED) function pinmux_emmc2_pins group pinmux_emmc2_pins
+pin 34 (44e10888): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 35 (44e1088c): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 36 (44e10890): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 37 (44e10894): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 38 (44e10898): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 39 (44e1089c): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 40 (44e108a0): hdmi.12 (GPIO UNCLAIMED) function nxp_hdmi_bonelt_pins group nxp_hdmi_bonelt_pins
+pin 41 (44e108a4): hdmi.12 (GPIO UNCLAIMED) function nxp_hdmi_bonelt_pins group nxp_hdmi_bonelt_pins
+pin 42 (44e108a8): hdmi.12 (GPIO UNCLAIMED) function nxp_hdmi_bonelt_pins group nxp_hdmi_bonelt_pins
+pin 43 (44e108ac): hdmi.12 (GPIO UNCLAIMED) function nxp_hdmi_bonelt_pins group nxp_hdmi_bonelt_pins
+pin 44 (44e108b0): hdmi.12 (GPIO UNCLAIMED) function nxp_hdmi_bonelt_pins group nxp_hdmi_bonelt_pins
+pin 45 (44e108b4): hdmi.12 (GPIO UNCLAIMED) function nxp_hdmi_bonelt_pins group nxp_hdmi_bonelt_pins
+pin 46 (44e108b8): hdmi.12 (GPIO UNCLAIMED) function nxp_hdmi_bonelt_pins group nxp_hdmi_bonelt_pins
+pin 47 (44e108bc): hdmi.12 (GPIO UNCLAIMED) function nxp_hdmi_bonelt_pins group nxp_hdmi_bonelt_pins
+pin 48 (44e108c0): hdmi.12 (GPIO UNCLAIMED) function nxp_hdmi_bonelt_pins group nxp_hdmi_bonelt_pins
+pin 49 (44e108c4): hdmi.12 (GPIO UNCLAIMED) function nxp_hdmi_bonelt_pins group nxp_hdmi_bonelt_pins
+pin 50 (44e108c8): hdmi.12 (GPIO UNCLAIMED) function nxp_hdmi_bonelt_pins group nxp_hdmi_bonelt_pins
+pin 51 (44e108cc): hdmi.12 (GPIO UNCLAIMED) function nxp_hdmi_bonelt_pins group nxp_hdmi_bonelt_pins
+pin 52 (44e108d0): hdmi.12 (GPIO UNCLAIMED) function nxp_hdmi_bonelt_pins group nxp_hdmi_bonelt_pins
+pin 53 (44e108d4): hdmi.12 (GPIO UNCLAIMED) function nxp_hdmi_bonelt_pins group nxp_hdmi_bonelt_pins
+pin 54 (44e108d8): hdmi.12 (GPIO UNCLAIMED) function nxp_hdmi_bonelt_pins group nxp_hdmi_bonelt_pins
+pin 55 (44e108dc): hdmi.12 (GPIO UNCLAIMED) function nxp_hdmi_bonelt_pins group nxp_hdmi_bonelt_pins
+pin 56 (44e108e0): hdmi.12 (GPIO UNCLAIMED) function nxp_hdmi_bonelt_pins group nxp_hdmi_bonelt_pins
+pin 57 (44e108e4): hdmi.12 (GPIO UNCLAIMED) function nxp_hdmi_bonelt_pins group nxp_hdmi_bonelt_pins
+pin 58 (44e108e8): hdmi.12 (GPIO UNCLAIMED) function nxp_hdmi_bonelt_pins group nxp_hdmi_bonelt_pins
+pin 59 (44e108ec): hdmi.12 (GPIO UNCLAIMED) function nxp_hdmi_bonelt_pins group nxp_hdmi_bonelt_pins
+pin 60 (44e108f0): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 61 (44e108f4): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 62 (44e108f8): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 63 (44e108fc): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 64 (44e10900): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 65 (44e10904): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 66 (44e10908): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 67 (44e1090c): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 68 (44e10910): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 69 (44e10914): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 70 (44e10918): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 71 (44e1091c): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 72 (44e10920): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 73 (44e10924): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 74 (44e10928): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 75 (44e1092c): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 76 (44e10930): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 77 (44e10934): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 78 (44e10938): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 79 (44e1093c): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 80 (44e10940): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 81 (44e10944): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 82 (44e10948): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 83 (44e1094c): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 84 (44e10950): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 85 (44e10954): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 86 (44e10958): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 87 (44e1095c): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 88 (44e10960): mmc.4 (GPIO UNCLAIMED) function pinmux_mmc1_pins group pinmux_mmc1_pins
+pin 89 (44e10964): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 90 (44e10968): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 91 (44e1096c): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 92 (44e10970): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 93 (44e10974): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 94 (44e10978): 4819c000.i2c (GPIO UNCLAIMED) function pinmux_i2c2_pins group pinmux_i2c2_pins
+pin 95 (44e1097c): 4819c000.i2c (GPIO UNCLAIMED) function pinmux_i2c2_pins group pinmux_i2c2_pins
+pin 96 (44e10980): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 97 (44e10984): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 98 (44e10988): 44e0b000.i2c (GPIO UNCLAIMED) function pinmux_i2c0_pins group pinmux_i2c0_pins
+pin 99 (44e1098c): 44e0b000.i2c (GPIO UNCLAIMED) function pinmux_i2c0_pins group pinmux_i2c0_pins
+pin 100 (44e10990): 48038000.mcasp (GPIO UNCLAIMED) function mcasp0_pins group mcasp0_pins
+pin 101 (44e10994): 48038000.mcasp (GPIO UNCLAIMED) function mcasp0_pins group mcasp0_pins
+pin 102 (44e10998): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 103 (44e1099c): 48038000.mcasp (GPIO UNCLAIMED) function mcasp0_pins group mcasp0_pins
+pin 104 (44e109a0): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 105 (44e109a4): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 106 (44e109a8): 48038000.mcasp (GPIO UNCLAIMED) function mcasp0_pins group mcasp0_pins
+pin 107 (44e109ac): 48038000.mcasp (GPIO UNCLAIMED) function mcasp0_pins group mcasp0_pins
+pin 108 (44e109b0): hdmi.12 (GPIO UNCLAIMED) function nxp_hdmi_bonelt_pins group nxp_hdmi_bonelt_pins
+pin 109 (44e109b4): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 110 (44e109b8): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 111 (44e109bc): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 112 (44e109c0): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 113 (44e109c4): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 114 (44e109c8): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 115 (44e109cc): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 116 (44e109d0): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 117 (44e109d4): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 118 (44e109d8): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 119 (44e109dc): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 120 (44e109e0): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 121 (44e109e4): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 122 (44e109e8): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 123 (44e109ec): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 124 (44e109f0): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 125 (44e109f4): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 126 (44e109f8): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 127 (44e109fc): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 128 (44e10a00): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 129 (44e10a04): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 130 (44e10a08): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 131 (44e10a0c): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 132 (44e10a10): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 133 (44e10a14): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 134 (44e10a18): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 135 (44e10a1c): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 136 (44e10a20): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 137 (44e10a24): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 138 (44e10a28): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 139 (44e10a2c): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 140 (44e10a30): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+pin 141 (44e10a34): (MUX UNCLAIMED) (GPIO UNCLAIMED)

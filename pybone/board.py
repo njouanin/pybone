@@ -6,12 +6,6 @@ from pybone.pin_desc import BBB_P8_DEF, BBB_P9_DEF, BBB_control_module_addr
 from pybone.utils import filesystem
 
 LOGGER = logging.getLogger(__name__)
-
-_board_name_file_pattern = '/sys/devices/bone_capemgr.*/baseboard/board-name'
-_revision_file_pattern = '/sys/devices/bone_capemgr.*/baseboard/revision'
-_serial_number_file_pattern = '/sys/devices/bone_capemgr.*/baseboard/serial-number'
-_pins_file_pattern = '/sys/kernel/debug/pinctrl/44e10800.pinmux/pins'
-
 loop = asyncio.get_event_loop()
 
 
@@ -41,7 +35,7 @@ class RegPullType(Enum):
     pulldown = 'pulldown'
 
 
-def parse_pinmux_line(line):
+def parse_pins_line(line):
     m = re.match(r"pin ([0-9]+)\s.([0-9a-f]+).\s([0-9a-f]+)", line)
     try:
         pin_index = int(m.group(1))
@@ -61,16 +55,72 @@ def parse_pinmux_line(line):
 
         return {'index': pin_index, 'address': pin_address, 'reg': pin_reg}
     except Exception as e:
-        LOGGER.warning("Failed parsing '%s'." % line, e)
+        LOGGER.warning("Failed parsing pins line '%s'." % line, e)
         return None
+
+def parse_pinmux_pins_file(line):
+    #pin 0 (44e10800): mmc.10 (GPIO UNCLAIMED) function pinmux_emmc2_pins group pinmux_emmc2_pins
+    #pin 8 (44e10820): (MUX UNCLAIMED) (GPIO UNCLAIMED)
+
+    m = re.match(r"pin ([0-9]+)\s.([0-9a-f]+).\:.(.*)", line)
+    if m is None:
+        LOGGER.warning("pinmux line '%s' doesn't find expected format." % line)
+        return None
+    pin_index = int(m.group(1))
+    pin_address = int(m.group(2), 16)
+    owner_string = m.group(3)
+
+    if '(MUX UNCLAIMED) (GPIO UNCLAIMED)' in owner_string:
+        pin_mux_owner = None
+        pin_gpio_owner = None
+        pin_function = None
+        pin_group = None
+    elif '(MUX UNCLAIMED)' in owner_string:
+        m = re.match(r"\(MUX UNCLAIMED\) ([\(\)\w\.\d_]+) function ([\(\)\w\.\d_]+) group ([\(\)\w\.\d_]+)", owner_string)
+        if m is None:
+            LOGGER.warning("pinmux line '%s' doesn't find expected format." % line)
+            return None
+        else:
+            pin_mux_owner = None
+            pin_gpio_owner = m.group(1)
+            pin_function = m.group(2)
+            pin_group = m.group(3)
+    elif '(GPIO UNCLAIMED)' in owner_string:
+        m = re.match(r"([\(\)\w\.\d_]+) \(GPIO UNCLAIMED\) function ([\(\)\w\.\d_]+) group ([\(\)\w\.\d_]+)", owner_string)
+        if m is None:
+            LOGGER.warning("pinmux line '%s' doesn't find expected format." % line)
+            return None
+        else:
+            pin_mux_owner = m.group(1)
+            pin_gpio_owner = None
+            pin_function = m.group(2)
+            pin_group = m.group(3)
+    else:
+        LOGGER.warning("pinmux line '%s' doesn't find expected format." % line)
+        return None
+
+    return { 'index': pin_index,
+               'address': pin_address,
+               'mux_owner': pin_mux_owner,
+               'gpio_owner': pin_gpio_owner,
+               'function': pin_function,
+               'group': pin_group
+    }
 
 
 @asyncio.coroutine
-def read_pinmux(pins_file):
+def read_pins_file(pins_file):
     file_content = yield from filesystem.read_async(pins_file)
     if file_content is not None:
         for line in file_content[1:]:
-            yield parse_pinmux_line(line)
+            yield parse_pins_line(line)
+
+@asyncio.coroutine
+def read_pinmux_pins(pinmux_pins_file):
+    file_content = yield from filesystem.read_async(pinmux_pins_file)
+    if file_content is not None:
+        for line in file_content[2:]:
+            yield parse_pinmux_pins_file(line)
 
 @asyncio.coroutine
 def read_board_name(board_file):
@@ -118,15 +168,15 @@ class Pin(object):
         self.gpio_chip = definition['gpio_chip']
         self.gpio_number = definition['gpio_number']
 
-    def update_from_pinmux(self, pinmux_info):
-        if self.address == pinmux_info['address']:
-            self.register_mode = pinmux_info['reg']['mode']
-            self.register_slew = pinmux_info['reg']['slew']
-            self.register_receive = pinmux_info['reg']['receive']
-            self.register_pull = pinmux_info['reg']['pull']
-            self.register_pulltype = pinmux_info['reg']['pulltype']
+    def update_from_pins(self, pins_info):
+        if self.address == pins_info['address']:
+            self.register_mode = pins_info['reg']['mode']
+            self.register_slew = pins_info['reg']['slew']
+            self.register_receive = pins_info['reg']['receive']
+            self.register_pull = pins_info['reg']['pull']
+            self.register_pulltype = pins_info['reg']['pulltype']
         else:
-            LOGGER.fatal("Pin address configuration '0x%x' doesn't match pinmux address '0x%x" % (self.address, pinmux_info['address']))
+            LOGGER.fatal("Pin address configuration '0x%x' doesn't match pins address '0x%x" % (self.address, pins_info['address']))
 
 
     @property
@@ -149,7 +199,7 @@ class Board(object):
         loop.run_until_complete(self._init_async())
         self.pins = [pin for pin in self._load_pins(Header.p8)]
         self.pins += [pin for pin in self._load_pins(Header.p9)]
-        loop.run_until_complete(self._update_from_pinmux())
+        loop.run_until_complete(self._update_from_pinctrl())
 
     @asyncio.coroutine
     def _init_async(self):
@@ -220,15 +270,20 @@ class Board(object):
             print(e)
 
     @asyncio.coroutine
-    def _update_from_pinmux(self):
+    def _update_from_pinctrl(self):
         """
-        Update bord pins configuration from pinmux files informations
+        Update bord pins configuration from pinctrl files informations
         :return:
         """
-        for pinmux in read_pinmux(self.platform.pins_file):
+        for pins_line in read_pins_file(self.platform.pins_file):
+            if pins_line is not None:
+                #look for pin matching the driver pin
+                pin = self.get_pin(address=pins_line['address'])
+                if pin is not None:
+                    pin.update_from_pins(pins_line)
+                else:
+                    LOGGER.warning("No pin definition matching address '0x%x' from pins was not found" % pins_line['address'])
+        for pinmux_pins_line in read_pinmux_pins(self.platform.pinmux_pins_file):
             #look for pin matching the driver pin
-            pin = self.get_pin(address=pinmux['address'])
-            if pin is not None:
-                pin.update_from_pinmux(pinmux)
-            #else:
-            #    LOGGER.warning("No pin definition matching address '0x%x' from pinmux was not found" % pinmux['address'])
+            if pinmux_pins_line is not None:
+                pin = self.get_pin(address=pinmux_pins_line['address'])

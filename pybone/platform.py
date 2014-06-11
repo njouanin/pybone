@@ -36,6 +36,7 @@ class Linux38BonePlatform(Platform):
     _revision_file_pattern = '/sys/devices/bone_capemgr.*/baseboard/revision'
     _serial_number_file_pattern = '/sys/devices/bone_capemgr.*/baseboard/serial-number'
     _pins_file_pattern = '/sys/kernel/debug/pinctrl/44e10800.pinmux/pins'
+    _pinmux_pins_file_pattern = '/sys/kernel/debug/pinctrl/44e10800.pinmux/pinmux-pins'
 
     def __init__(self, system_name, kernel_release, processor):
         super(Linux38BonePlatform, self).__init__(system_name, kernel_release, processor)
@@ -53,6 +54,7 @@ class Linux38BonePlatform(Platform):
         self.revision_file = yield from find_first_file(Linux38BonePlatform._revision_file_pattern)
         self.serial_number_file = yield from find_first_file(Linux38BonePlatform._serial_number_file_pattern)
         self.pins_file = yield from find_first_file(Linux38BonePlatform._pins_file_pattern)
+        self.pinmux_pins_file = yield from find_first_file(Linux38BonePlatform._pinmux_pins_file_pattern)
 
 local_system = platform.system()
 local_release = platform.release()
