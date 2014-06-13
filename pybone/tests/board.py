@@ -13,7 +13,7 @@ class ParsePinMuxTestFunction(unittest.TestCase):
         pf.revision_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), "resources/revision")
         pf.serial_number_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), "resources/serial-number")
         pf.pins_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), "resources/pins")
-        pf.pinmux_pins_file=os.path.join(os.path.dirname(os.path.realpath(__file__)), "resources/pins")
+        pf.pinmux_pins_file=os.path.join(os.path.dirname(os.path.realpath(__file__)), "resources/pinmux-pins")
         return Board(pf)
 
     def test_parse_pins_line(self):
