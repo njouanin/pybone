@@ -176,8 +176,16 @@ class Pin(object):
             self.register_pull = pins_info['reg']['pull']
             self.register_pulltype = pins_info['reg']['pulltype']
         else:
-            LOGGER.fatal("Pin address configuration '0x%x' doesn't match pins address '0x%x" % (self.address, pins_info['address']))
+            LOGGER.debug("Pin address configuration '0x%x' doesn't match pins address '0x%x" % (self.address, pins_info['address']))
 
+    def update_from_pinmux_pins(self, pinmux_info):
+        if self.address == pinmux_info['address']:
+            self.mux_owner = pinmux_info['mux_owner']
+            self.gpio_owner = pinmux_info['gpio_owner']
+            self.function = pinmux_info['function']
+            self.group = pinmux_info['group']
+        else:
+            LOGGER.debug("Pin address configuration '0x%x' doesn't match pinmux address '0x%x" % (self.address, pinmux_info['address']))
 
     @property
     def address(self):
@@ -190,6 +198,11 @@ class Pin(object):
     def key(self):
         return "%s_%d" % (self.header.value, self.header_pin)
 
+    def __repr__(self):
+        sb = []
+        for key in self.__dict__:
+            sb.append("%r=%r" % (key, self.__dict__[key]))
+        return "Pin(" + ','.join(sb) + ")"
 
 
 class Board(object):
@@ -267,7 +280,7 @@ class Board(object):
             iterator = self.iter_pins(header, driver_pin, address)
             return next(iterator)
         except Exception as e:
-            print(e)
+            LOGGER.debug("No pin matching args header='%s', driver_pin='%s', address='0x%x'" % (header, driver_pin, address))
 
     @asyncio.coroutine
     def _update_from_pinctrl(self):
@@ -282,8 +295,18 @@ class Board(object):
                 if pin is not None:
                     pin.update_from_pins(pins_line)
                 else:
-                    LOGGER.warning("No pin definition matching address '0x%x' from pins was not found" % pins_line['address'])
+                    LOGGER.debug("No pin definition matching address '0x%x' from 'pins' file was not found" % pins_line['address'])
         for pinmux_pins_line in read_pinmux_pins(self.platform.pinmux_pins_file):
             #look for pin matching the driver pin
             if pinmux_pins_line is not None:
                 pin = self.get_pin(address=pinmux_pins_line['address'])
+                if pin is not None:
+                    pin.update_from_pinmux_pins(pinmux_pins_line)
+                else:
+                    LOGGER.debug("No pin definition matching address '0x%x' from 'pinmux-pins' was not found" % pinmux_pins_line['address'])
+
+    def __repr__(self):
+        return "Board(name=%r,revision=%r,serial_number=%r)" % \
+               (self.name,
+                self.revision,
+                self.serial_number)
