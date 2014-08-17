@@ -1,13 +1,33 @@
+# Copyright (C) 2014  Nicolas Jouanin
+#
+# This file is part of pybone.
+#
+# Pybone is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pybone is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pybone.  If not, see <http://www.gnu.org/licenses/>.
+
 import asyncio
 import logging
 import re
 from enum import Enum
 from pybone.pin_desc import BBB_P8_DEF, BBB_P9_DEF, BBB_control_module_addr
 from pybone.utils import filesystem
+from pybone.platform import local_platform
 
 LOGGER = logging.getLogger(__name__)
 loop = asyncio.get_event_loop()
 
+class PlatformError(Exception):
+    pass
 
 class Header(Enum):
     p8 = 'P8'
@@ -207,7 +227,7 @@ class Pin(object):
 
 class Board(object):
     pin_reg_address = 0x44e10000
-    def __init__(self, run_platform):
+    def __init__(self, run_platform=local_platform):
         self.platform = run_platform
         loop.run_until_complete(self._init_async())
         self.pins = [pin for pin in self._load_pins(Header.p8)]
@@ -216,9 +236,12 @@ class Board(object):
 
     @asyncio.coroutine
     def _init_async(self):
-        self.name = yield from read_board_name(self.platform.board_name_file)
-        self.revision = yield from read_board_revision(self.platform.revision_file)
-        self.serial_number = yield from read_board_serial_number(self.platform.serial_number_file)
+        try:
+            self.name = yield from read_board_name(self.platform.board_name_file)
+            self.revision = yield from read_board_revision(self.platform.revision_file)
+            self.serial_number = yield from read_board_serial_number(self.platform.serial_number_file)
+        except AttributeError as e:
+            print(e)
 
     def _load_pins(self, header):
         """

@@ -1,8 +1,26 @@
+# Copyright (C) 2014  Nicolas Jouanin
+#
+# This file is part of pybone.
+#
+# Pybone is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# Pybone is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with Pybone.  If not, see <http://www.gnu.org/licenses/>.
+
+
 BBB_control_module_addr=0x44e10000
 
 ############################################################################
 # P8 header definition
-# 
+#
 # Each array element contains :
 #   - head_pin : Pin number on P8 header
 #   - head_name : Pin name on P8 header (see SRM, table 11, column NAME)
@@ -20,11 +38,11 @@ BBB_control_module_addr=0x44e10000
 BBB_P8_DEF = [
     {
         'head_pin':1,
-        'head_name': 'GND', 
-        'proc_pin': None, 
-        'reg_offset': None, 
-        'driver_pin': None, 
-        'proc_pin_name': None, 
+        'head_name': 'GND',
+        'proc_pin': None,
+        'reg_offset': None,
+        'driver_pin': None,
+        'proc_pin_name': None,
         'proc_signal_name': [None, None, None, None, None, None, None, None],
         'reset_mode': None,
         'gpio_chip': None,
@@ -33,78 +51,78 @@ BBB_P8_DEF = [
     },
     {
         'head_pin':2,
-        'head_name': 'GND', 
-        'proc_pin': None, 
-        'reg_offset': None, 
-        'driver_pin': None, 
-        'proc_pin_name': None, 
+        'head_name': 'GND',
+        'proc_pin': None,
+        'reg_offset': None,
+        'driver_pin': None,
+        'proc_pin_name': None,
         'proc_signal_name': [None, None, None, None, None, None, None, None],
-        'reset_mode': None, 
+        'reset_mode': None,
         'gpio_chip': None,
         'gpio_number': None,
         'notes': 'GND'
     },
     {
         'head_pin':3,
-        'head_name': 'GPIO1_6', 
-        'proc_pin': 'R9', 
-        'reg_offset': 0x818, 
-        'driver_pin': 6, 
-        'proc_pin_name': 'GPMC_AD6', 
-        'proc_signal_name': ['gpmc_ad6', 'mmc1_dat6', None, None, None, None, None, 'gpio1_6'], 
-        'reset_mode': 7, 
+        'head_name': 'GPIO1_6',
+        'proc_pin': 'R9',
+        'reg_offset': 0x818,
+        'driver_pin': 6,
+        'proc_pin_name': 'GPMC_AD6',
+        'proc_signal_name': ['gpmc_ad6', 'mmc1_dat6', None, None, None, None, None, 'gpio1_6'],
+        'reset_mode': 7,
         'gpio_chip': 1,
         'gpio_number': 38,
         'notes': None
     },
     {
         'head_pin':4,
-        'head_name': 'GPIO1_7', 
-        'proc_pin': 'T9', 
-        'reg_offset': 0x81c, 
-        'driver_pin': 7, 
-        'proc_pin_name': 'GPMC_AD7', 
-        'proc_signal_name': ['gpmc_ad7', 'mmc1_dat7', None, None, None, None, None, 'gpio1_7'], 
-        'reset_mode': 7, 
+        'head_name': 'GPIO1_7',
+        'proc_pin': 'T9',
+        'reg_offset': 0x81c,
+        'driver_pin': 7,
+        'proc_pin_name': 'GPMC_AD7',
+        'proc_signal_name': ['gpmc_ad7', 'mmc1_dat7', None, None, None, None, None, 'gpio1_7'],
+        'reset_mode': 7,
         'gpio_chip': 1,
         'gpio_number': 39,
         'notes': None
     },
     {
         'head_pin':5,
-        'head_name': 'GPIO1_2', 
-        'proc_pin': 'R8', 
-        'reg_offset': 0x808, 
-        'driver_pin': 2, 
-        'proc_pin_name': 'GPMC_AD2', 
-        'proc_signal_name': ['gpmc_ad2', 'mmc1_dat2', None, None, None, None, None, 'gpio1_2'], 
-        'reset_mode': 7, 
+        'head_name': 'GPIO1_2',
+        'proc_pin': 'R8',
+        'reg_offset': 0x808,
+        'driver_pin': 2,
+        'proc_pin_name': 'GPMC_AD2',
+        'proc_signal_name': ['gpmc_ad2', 'mmc1_dat2', None, None, None, None, None, 'gpio1_2'],
+        'reset_mode': 7,
         'gpio_chip': 1,
         'gpio_number': 34,
         'notes': None
     },
     {
         'head_pin':6,
-        'head_name': 'GPIO1_3', 
-        'proc_pin': 'T8', 
-        'reg_offset': 0x80c, 
-        'driver_pin': 3, 
-        'proc_pin_name': 'GPMC_AD3', 
-        'proc_signal_name': ['gpmc_ad3', 'mmc1_dat3', None, None, None, None, None, 'gpio1_3'], 
-        'reset_mode': 7, 
+        'head_name': 'GPIO1_3',
+        'proc_pin': 'T8',
+        'reg_offset': 0x80c,
+        'driver_pin': 3,
+        'proc_pin_name': 'GPMC_AD3',
+        'proc_signal_name': ['gpmc_ad3', 'mmc1_dat3', None, None, None, None, None, 'gpio1_3'],
+        'reset_mode': 7,
         'gpio_chip': 1,
         'gpio_number': 35,
         'notes': None
     },
     {
         'head_pin':7,
-        'head_name': 'TIMER4', 
-        'proc_pin': 'R7', 
-        'reg_offset': 0x890, 
-        'driver_pin': 36, 
+        'head_name': 'TIMER4',
+        'proc_pin': 'R7',
+        'reg_offset': 0x890,
+        'driver_pin': 36,
         'proc_pin_name': 'GPMC_ADVn_ALE',
-        'proc_signal_name': ['gpmc_advn_ale', None, 'timer4', None, None, None, None, 'gpio2_2'], 
-        'reset_mode': 7, 
+        'proc_signal_name': ['gpmc_advn_ale', None, 'timer4', None, None, None, None, 'gpio2_2'],
+        'reset_mode': 7,
         'gpio_chip': 2,
         'gpio_number': 66,
         'notes': None
@@ -112,185 +130,185 @@ BBB_P8_DEF = [
     {
         'head_pin':8,
         'head_name': 'TIMER7',
-        'proc_pin': 'T7', 
-        'reg_offset': 0x894, 
-        'driver_pin': 37, 
-        'proc_pin_name': 'GPMC_OEn_REn', 
-        'proc_signal_name': ['gpmc_oen_ren', None, 'timer7', None, None, None, None, 'gpio2_3'], 
-        'reset_mode': 7, 
+        'proc_pin': 'T7',
+        'reg_offset': 0x894,
+        'driver_pin': 37,
+        'proc_pin_name': 'GPMC_OEn_REn',
+        'proc_signal_name': ['gpmc_oen_ren', None, 'timer7', None, None, None, None, 'gpio2_3'],
+        'reset_mode': 7,
         'gpio_chip': 2,
         'gpio_number': 67,
         'notes': None
     },
     {
         'head_pin':9,
-        'head_name': 'TIMER5', 
-        'proc_pin': 'T6', 
-        'reg_offset': 0x89c, 
-        'driver_pin': 39, 
-        'proc_pin_name': 'GPMC_BEn0_CLE', 
-        'proc_signal_name': ['gpmc_be0n_cle', None, 'timer5', None, None, None, None, 'gpio2_5'], 
-        'reset_mode': 7, 
+        'head_name': 'TIMER5',
+        'proc_pin': 'T6',
+        'reg_offset': 0x89c,
+        'driver_pin': 39,
+        'proc_pin_name': 'GPMC_BEn0_CLE',
+        'proc_signal_name': ['gpmc_be0n_cle', None, 'timer5', None, None, None, None, 'gpio2_5'],
+        'reset_mode': 7,
         'gpio_chip': 2,
         'gpio_number': 69,
         'notes': None
     },
     {
-    
+
         'head_pin':10,
-        'head_name': 'TIMER6', 
-        'proc_pin': 'U6', 
-        'reg_offset': 0x898, 
-        'driver_pin': 38, 
-        'proc_pin_name': 'GPMC_WEn', 
-        'proc_signal_name': ['gpmc_wen', None, 'timer6', None, None, None, None, 'gpio2_4'], 
-        'reset_mode': 7, 
+        'head_name': 'TIMER6',
+        'proc_pin': 'U6',
+        'reg_offset': 0x898,
+        'driver_pin': 38,
+        'proc_pin_name': 'GPMC_WEn',
+        'proc_signal_name': ['gpmc_wen', None, 'timer6', None, None, None, None, 'gpio2_4'],
+        'reset_mode': 7,
         'gpio_chip': 2,
         'gpio_number': 68,
         'notes': None
     },
     {
-    
+
         'head_pin':11,
-        'head_name': 'GPIO1_13', 
-        'proc_pin': 'R12', 
-        'reg_offset': 0x834, 
-        'driver_pin': 13, 
-        'proc_pin_name': 'GPMC_AD13', 
-        'proc_signal_name': ['gpmc_ad13', 'lcd_data18', 'mmc1_dat5', 'mmc2_dat1', 'eQEP2B_in', 'pr1_mii0_txd1', 'pr1_pru0_pru_r30_15', 'gpio1_13'], 
-        'reset_mode': 7, 
+        'head_name': 'GPIO1_13',
+        'proc_pin': 'R12',
+        'reg_offset': 0x834,
+        'driver_pin': 13,
+        'proc_pin_name': 'GPMC_AD13',
+        'proc_signal_name': ['gpmc_ad13', 'lcd_data18', 'mmc1_dat5', 'mmc2_dat1', 'eQEP2B_in', 'pr1_mii0_txd1', 'pr1_pru0_pru_r30_15', 'gpio1_13'],
+        'reset_mode': 7,
         'gpio_chip': 1,
         'gpio_number': 45,
         'notes': None
     },
     {
-    
+
         'head_pin':12,
-        'head_name': 'GPIO1_12', 
-        'proc_pin': 'T12', 
-        'reg_offset': 0x830, 
-        'driver_pin': 12, 
-        'proc_pin_name': 'GPMC_AD12', 
-        'proc_signal_name': ['gpmc_ad12', 'lcd_data19', 'mmc1_dat4', 'mmc2_dat0', 'eQEP2A_in', 'pr1_mii0_txd2', 'pr1_pru0_pru_r30_14', 'gpio1_12'], 
-        'reset_mode': 7, 
+        'head_name': 'GPIO1_12',
+        'proc_pin': 'T12',
+        'reg_offset': 0x830,
+        'driver_pin': 12,
+        'proc_pin_name': 'GPMC_AD12',
+        'proc_signal_name': ['gpmc_ad12', 'lcd_data19', 'mmc1_dat4', 'mmc2_dat0', 'eQEP2A_in', 'pr1_mii0_txd2', 'pr1_pru0_pru_r30_14', 'gpio1_12'],
+        'reset_mode': 7,
         'gpio_chip': 1,
         'gpio_number': 44,
         'notes': None
     },
     {
-    
+
         'head_pin':13,
-        'head_name': 'EHRPWM2B', 
-        'proc_pin': 'T10', 
+        'head_name': 'EHRPWM2B',
+        'proc_pin': 'T10',
         'reg_offset': 0x824,
-        'driver_pin': 9, 
-        'proc_pin_name': 'GPMC_AD9', 
-        'proc_signal_name': ['gpmc_ad9', 'lcd_data22', 'mmc1_dat1', 'mmc2_dat5', 'ehrpwm2B', 'pr1_mii0_col', None, 'gpio0_23'], 
-        'reset_mode': 7, 
+        'driver_pin': 9,
+        'proc_pin_name': 'GPMC_AD9',
+        'proc_signal_name': ['gpmc_ad9', 'lcd_data22', 'mmc1_dat1', 'mmc2_dat5', 'ehrpwm2B', 'pr1_mii0_col', None, 'gpio0_23'],
+        'reset_mode': 7,
         'gpio_chip': 0,
         'gpio_number': 23,
         'notes': None
     },
     {
-    
+
         'head_pin':14,
-        'head_name': 'GPIO0_26', 
-        'proc_pin': 'T11', 
+        'head_name': 'GPIO0_26',
+        'proc_pin': 'T11',
         'reg_offset': 0x828,
-        'driver_pin': 10, 
-        'proc_pin_name': 'GPMC_AD10', 
-        'proc_signal_name': ['gpmc_ad10', 'lcd_data21', 'mmc1_dat2', 'mmc2_dat6', 'ehrpwm2_tripzone_input', 'pr1_mii0_txen', None, 'gpio0_26'], 
-        'reset_mode': 7, 
+        'driver_pin': 10,
+        'proc_pin_name': 'GPMC_AD10',
+        'proc_signal_name': ['gpmc_ad10', 'lcd_data21', 'mmc1_dat2', 'mmc2_dat6', 'ehrpwm2_tripzone_input', 'pr1_mii0_txen', None, 'gpio0_26'],
+        'reset_mode': 7,
         'gpio_chip': 0,
         'gpio_number': 26,
         'notes': None
     },
     {
-    
+
         'head_pin':15,
-        'head_name': 'GPIO1_15', 
-        'proc_pin': 'U13', 
-        'reg_offset': 0x83c, 
-        'driver_pin': 15, 
-        'proc_pin_name': 'GPMC_AD15', 
-        'proc_signal_name': ['gpmc_ad15', 'lcd_data16', 'mmc1_dat7', 'mmc2_dat3', 'eQEP2_strobe', 'pr1_ecap0_ecap_capin_apwm_o', 'pr1_pru0_pru_r31_15', 'gpio1_15'], 
-        'reset_mode': 7, 
+        'head_name': 'GPIO1_15',
+        'proc_pin': 'U13',
+        'reg_offset': 0x83c,
+        'driver_pin': 15,
+        'proc_pin_name': 'GPMC_AD15',
+        'proc_signal_name': ['gpmc_ad15', 'lcd_data16', 'mmc1_dat7', 'mmc2_dat3', 'eQEP2_strobe', 'pr1_ecap0_ecap_capin_apwm_o', 'pr1_pru0_pru_r31_15', 'gpio1_15'],
+        'reset_mode': 7,
         'gpio_chip': 32,
         'gpio_number': 47,
         'notes': None
     },
     {
-    
+
         'head_pin':16,
-        'head_name': 'GPIO1_14', 
-        'proc_pin': 'V13', 
-        'reg_offset': 0x838, 
-        'driver_pin': 14, 
-        'proc_pin_name': 'GPMC_AD14', 
-        'proc_signal_name': ['gpmc_ad14', 'lcd_data17', 'mmc1_dat6', 'mmc2_dat2', 'eQEP2_index', 'pr1_mii0_txd0', 'pr1_pru0_pru_r31_14', 'gpio1_14'], 
-        'reset_mode': 7, 
+        'head_name': 'GPIO1_14',
+        'proc_pin': 'V13',
+        'reg_offset': 0x838,
+        'driver_pin': 14,
+        'proc_pin_name': 'GPMC_AD14',
+        'proc_signal_name': ['gpmc_ad14', 'lcd_data17', 'mmc1_dat6', 'mmc2_dat2', 'eQEP2_index', 'pr1_mii0_txd0', 'pr1_pru0_pru_r31_14', 'gpio1_14'],
+        'reset_mode': 7,
         'gpio_chip': 1,
         'gpio_number': 46,
         'notes': None
     },
     {
-    
+
         'head_pin':17,
-        'head_name': 'GPIO0_27', 
-        'proc_pin': 'U12', 
-        'reg_offset': 0x82c, 
-        'driver_pin': 11, 
-        'proc_pin_name': 'GPMC_AD11', 
-        'proc_signal_name': ['gpmc_ad11', 'lcd_data20', 'mmc1_dat3', 'mmc2_dat7', 'ehrpwm0_synco', 'pr1_mii0_txd3', None, 'gpio0_27'], 
-        'reset_mode': 7, 
+        'head_name': 'GPIO0_27',
+        'proc_pin': 'U12',
+        'reg_offset': 0x82c,
+        'driver_pin': 11,
+        'proc_pin_name': 'GPMC_AD11',
+        'proc_signal_name': ['gpmc_ad11', 'lcd_data20', 'mmc1_dat3', 'mmc2_dat7', 'ehrpwm0_synco', 'pr1_mii0_txd3', None, 'gpio0_27'],
+        'reset_mode': 7,
         'gpio_chip': 0,
         'gpio_number': 27,
         'notes': None
     },
     {
-    
+
         'head_pin':18,
-        'head_name': 'GPIO2_1', 
-        'proc_pin': 'V12', 
-        'reg_offset': 0x88c, 
-        'driver_pin': 35, 
-        'proc_pin_name': 'GPMC_CLK', 
-        'proc_signal_name': ['gpmc_clk', 'lcd_memory_clk', 'gpmc_wait1', 'mmc2_clk', 'pr1_mii1_crs', 'pr1_mdio_mdclk', 'mcasp0_fsr', 'gpio2_1'], 
-        'reset_mode': 7, 
+        'head_name': 'GPIO2_1',
+        'proc_pin': 'V12',
+        'reg_offset': 0x88c,
+        'driver_pin': 35,
+        'proc_pin_name': 'GPMC_CLK',
+        'proc_signal_name': ['gpmc_clk', 'lcd_memory_clk', 'gpmc_wait1', 'mmc2_clk', 'pr1_mii1_crs', 'pr1_mdio_mdclk', 'mcasp0_fsr', 'gpio2_1'],
+        'reset_mode': 7,
         'gpio_chip': 2,
         'gpio_number': 65,
         'notes': None
     },
     {
-    
+
         'head_pin':19,
-        'head_name': 'EHRPWM2A', 
-        'proc_pin': 'U10', 
-        'reg_offset': 0x820, 
-        'driver_pin': 8, 
-        'proc_pin_name': 'GPMC_AD8', 
-        'proc_signal_name': ['gpmc_ad8', 'lcd_data23', 'mmc1_dat0', 'mmc2_dat4', 'ehrpwm2A', 'pr1_mii_mt0_clk', None, 'gpio0_22'], 
-        'reset_mode': 7, 
+        'head_name': 'EHRPWM2A',
+        'proc_pin': 'U10',
+        'reg_offset': 0x820,
+        'driver_pin': 8,
+        'proc_pin_name': 'GPMC_AD8',
+        'proc_signal_name': ['gpmc_ad8', 'lcd_data23', 'mmc1_dat0', 'mmc2_dat4', 'ehrpwm2A', 'pr1_mii_mt0_clk', None, 'gpio0_22'],
+        'reset_mode': 7,
         'gpio_chip': 0,
         'gpio_number': 22,
         'notes': None
     },
     {
-    
+
         'head_pin':20,
-        'head_name': 'GPIO1_31', 
-        'proc_pin': 'V9', 
-        'reg_offset': 0x884, 
-        'driver_pin': 33, 
-        'proc_pin_name': 'GPMC_CSn2', 
-        'proc_signal_name': ['gpmc_csn2', 'gpmc_be1n', 'mmc1_cmd', 'pr1_edio_data_in7', 'pr1_edio_data_out7', 'pr1_pru1_pru_r30_13', 'pr1_pru1_pru_r31_13', 'gpio1_31'], 
-        'reset_mode': 7, 
+        'head_name': 'GPIO1_31',
+        'proc_pin': 'V9',
+        'reg_offset': 0x884,
+        'driver_pin': 33,
+        'proc_pin_name': 'GPMC_CSn2',
+        'proc_signal_name': ['gpmc_csn2', 'gpmc_be1n', 'mmc1_cmd', 'pr1_edio_data_in7', 'pr1_edio_data_out7', 'pr1_pru1_pru_r30_13', 'pr1_pru1_pru_r31_13', 'gpio1_31'],
+        'reset_mode': 7,
         'gpio_chip': 1,
         'gpio_number': 63,
         'notes': None
     },
     {
-    
+
         'head_pin':21,
         'head_name': 'GPIO1_30',
         'proc_pin': 'U9',
@@ -304,7 +322,7 @@ BBB_P8_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':22,
         'head_name': 'GPIO1_5',
         'proc_pin': 'V8',
@@ -318,7 +336,7 @@ BBB_P8_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':23,
         'head_name': 'GPIO1_4',
         'proc_pin': 'U8',
@@ -332,7 +350,7 @@ BBB_P8_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':24,
         'head_name': 'GPIO1_1',
         'proc_pin': 'V7',
@@ -346,7 +364,7 @@ BBB_P8_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':25,
         'head_name': 'GPIO1_0',
         'proc_pin': 'U7',
@@ -360,7 +378,7 @@ BBB_P8_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':26,
         'head_name': 'GPIO1_29',
         'proc_pin': 'V6',
@@ -374,7 +392,7 @@ BBB_P8_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':27,
         'head_name': 'GPIO2_22',
         'proc_pin': 'U5',
@@ -388,7 +406,7 @@ BBB_P8_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':28,
         'head_name': 'GPIO2_24',
         'proc_pin': 'V5',
@@ -402,7 +420,7 @@ BBB_P8_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':29,
         'head_name': 'GPIO2_23',
         'proc_pin': 'R5',
@@ -416,7 +434,7 @@ BBB_P8_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':30,
         'head_name': 'GPIO2_25',
         'proc_pin': 'R6',
@@ -430,7 +448,7 @@ BBB_P8_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':31,
         'head_name': 'UART5_CTSN',
         'proc_pin': 'V4',
@@ -444,7 +462,7 @@ BBB_P8_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':32,
         'head_name': 'UART5_RTSN',
         'proc_pin': 'T5',
@@ -458,7 +476,7 @@ BBB_P8_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':33,
         'head_name': 'UART4_RTSN',
         'proc_pin': 'V3',
@@ -472,7 +490,7 @@ BBB_P8_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':34,
         'head_name': 'UART3_RTSN',
         'proc_pin': 'U4',
@@ -486,7 +504,7 @@ BBB_P8_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':35,
         'head_name': 'UART4_CTSN',
         'proc_pin': 'V2',
@@ -500,7 +518,7 @@ BBB_P8_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':36,
         'head_name': 'UART3_CTSN',
         'proc_pin': 'U3',
@@ -514,7 +532,7 @@ BBB_P8_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':37,
         'head_name': 'UART5_TXD',
         'proc_pin': 'U1',
@@ -528,7 +546,7 @@ BBB_P8_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':38,
         'head_name': 'UART5_RXD',
         'proc_pin': 'U2',
@@ -542,7 +560,7 @@ BBB_P8_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':39,
         'head_name': 'GPIO2_12',
         'proc_pin': 'T3',
@@ -556,7 +574,7 @@ BBB_P8_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':40,
         'head_name': 'GPIO2_13',
         'proc_pin': 'T4',
@@ -570,7 +588,7 @@ BBB_P8_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':41,
         'head_name': 'GPIO2_10',
         'proc_pin': 'T1',
@@ -584,7 +602,7 @@ BBB_P8_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':42,
         'head_name': 'GPIO2_11',
         'proc_pin': 'T2',
@@ -598,7 +616,7 @@ BBB_P8_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':43,
         'head_name': 'GPIO2_8',
         'proc_pin': 'R3',
@@ -612,7 +630,7 @@ BBB_P8_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':44,
         'head_name': 'GPIO2_9',
         'proc_pin': 'R4',
@@ -626,7 +644,7 @@ BBB_P8_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':45,
         'head_name': 'GPIO2_6',
         'proc_pin': 'R1',
@@ -640,7 +658,7 @@ BBB_P8_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':46,
         'head_name': 'GPIO2_7',
         'proc_pin': 'R2',
@@ -657,293 +675,293 @@ BBB_P8_DEF = [
 
 ############################################################################
 # P9 header definition
-# 
+#
 # See P8 comment over for array description
 #
 ############################################################################
 BBB_P9_DEF = [
     {
-    
+
         'head_pin':1,
-        'head_name': 'GND', 
-        'proc_pin': None, 
-        'reg_offset': None, 
-        'driver_pin': None, 
-        'proc_pin_name': None, 
-        'proc_signal_name': [None, None, None, None, None, None, None, None], 
+        'head_name': 'GND',
+        'proc_pin': None,
+        'reg_offset': None,
+        'driver_pin': None,
+        'proc_pin_name': None,
+        'proc_signal_name': [None, None, None, None, None, None, None, None],
         'reset_mode': None,
         'gpio_chip': None,
         'gpio_number': None,
         'notes': 'GND'
     },
     {
-    
+
         'head_pin':2,
-        'head_name': 'GND', 
-        'proc_pin': None, 
-        'reg_offset': None, 
-        'driver_pin': None, 
-        'proc_pin_name': None, 
-        'proc_signal_name': [None, None, None, None, None, None, None, None], 
-        'reset_mode': None, 
+        'head_name': 'GND',
+        'proc_pin': None,
+        'reg_offset': None,
+        'driver_pin': None,
+        'proc_pin_name': None,
+        'proc_signal_name': [None, None, None, None, None, None, None, None],
+        'reset_mode': None,
         'gpio_chip': None,
         'gpio_number': None,
         'notes': 'GND'
     },
     {
-    
+
         'head_pin':3,
-        'head_name': 'DC_3.3V', 
-        'proc_pin': None, 
-        'reg_offset': None, 
-        'driver_pin': None, 
-        'proc_pin_name': None, 
-        'proc_signal_name': [None, None, None, None, None, None, None, None], 
+        'head_name': 'DC_3.3V',
+        'proc_pin': None,
+        'reg_offset': None,
+        'driver_pin': None,
+        'proc_pin_name': None,
+        'proc_signal_name': [None, None, None, None, None, None, None, None],
         'reset_mode': None,
         'gpio_chip': None,
         'gpio_number': None,
         'notes': 'DC_3.3V'
     },
     {
-    
+
         'head_pin':4,
-        'head_name': 'DC_3.3V', 
-        'proc_pin': None, 
-        'reg_offset': None, 
-        'driver_pin': None, 
-        'proc_pin_name': None, 
-        'proc_signal_name': [None, None, None, None, None, None, None, None], 
+        'head_name': 'DC_3.3V',
+        'proc_pin': None,
+        'reg_offset': None,
+        'driver_pin': None,
+        'proc_pin_name': None,
+        'proc_signal_name': [None, None, None, None, None, None, None, None],
         'reset_mode': None,
         'gpio_chip': None,
         'gpio_number': None,
         'notes': 'DC_3.3V'
     },
     {
-    
+
         'head_pin':5,
-        'head_name': 'VDD_5V', 
-        'proc_pin': None, 
-        'reg_offset': None, 
-        'driver_pin': None, 
-        'proc_pin_name': None, 
-        'proc_signal_name': [None, None, None, None, None, None, None, None], 
+        'head_name': 'VDD_5V',
+        'proc_pin': None,
+        'reg_offset': None,
+        'driver_pin': None,
+        'proc_pin_name': None,
+        'proc_signal_name': [None, None, None, None, None, None, None, None],
         'reset_mode': None,
         'gpio_chip': None,
         'gpio_number': None,
         'notes': 'VDD_5V'
     },
     {
-    
+
         'head_pin':6,
-        'head_name': 'VDD_5V', 
-        'proc_pin': None, 
-        'reg_offset': None, 
-        'driver_pin': None, 
-        'proc_pin_name': None, 
-        'proc_signal_name': [None, None, None, None, None, None, None, None], 
+        'head_name': 'VDD_5V',
+        'proc_pin': None,
+        'reg_offset': None,
+        'driver_pin': None,
+        'proc_pin_name': None,
+        'proc_signal_name': [None, None, None, None, None, None, None, None],
         'reset_mode': None,
         'gpio_chip': None,
         'gpio_number': None,
         'notes': 'VDD_5V'
     },
     {
-    
+
         'head_pin':7,
-        'head_name': 'SYS_5V', 
-        'proc_pin': None, 
-        'reg_offset': None, 
-        'driver_pin': None, 
-        'proc_pin_name': None, 
-        'proc_signal_name': [None, None, None, None, None, None, None, None], 
+        'head_name': 'SYS_5V',
+        'proc_pin': None,
+        'reg_offset': None,
+        'driver_pin': None,
+        'proc_pin_name': None,
+        'proc_signal_name': [None, None, None, None, None, None, None, None],
         'reset_mode': None,
         'gpio_chip': None,
         'gpio_number': None,
         'notes': 'SYS_5V'
     },
     {
-    
+
         'head_pin':8,
-        'head_name': 'SYS_5V', 
-        'proc_pin': None, 
-        'reg_offset': None, 
-        'driver_pin': None, 
-        'proc_pin_name': None, 
-        'proc_signal_name': [None, None, None, None, None, None, None, None], 
+        'head_name': 'SYS_5V',
+        'proc_pin': None,
+        'reg_offset': None,
+        'driver_pin': None,
+        'proc_pin_name': None,
+        'proc_signal_name': [None, None, None, None, None, None, None, None],
         'reset_mode': None,
         'gpio_chip': None,
         'gpio_number': None,
         'notes': 'SYS_5V'
     },
     {
-    
+
         'head_pin':9,
         'head_name': 'PWR_BUT',
-        'proc_pin': None, 
-        'reg_offset': None, 
-        'driver_pin': None, 
-        'proc_pin_name': None, 
-        'proc_signal_name': [None, None, None, None, None, None, None, None], 
+        'proc_pin': None,
+        'reg_offset': None,
+        'driver_pin': None,
+        'proc_pin_name': None,
+        'proc_signal_name': [None, None, None, None, None, None, None, None],
         'reset_mode': None,
         'gpio_chip': None,
         'gpio_number': None,
         'notes': 'PWR_BUT'
     },
     {
-    
+
         'head_pin':10,
-        'head_name': 'SYS_RESETn', 
-        'proc_pin': 'A10', 
-        'reg_offset': 0x9b8, 
-        'driver_pin': 110, 
-        'proc_pin_name': 'WARMRSTn', 
-        'proc_signal_name': ['nRESETIN_OUT', None, None, None, None, None, None, None], 
-        'reset_mode': 0, 
+        'head_name': 'SYS_RESETn',
+        'proc_pin': 'A10',
+        'reg_offset': 0x9b8,
+        'driver_pin': 110,
+        'proc_pin_name': 'WARMRSTn',
+        'proc_signal_name': ['nRESETIN_OUT', None, None, None, None, None, None, None],
+        'reset_mode': 0,
         'gpio_chip': None,
         'gpio_number': None,
         'notes': None
     },
     {
-    
+
         'head_pin':11,
-        'head_name': 'UART4_RXD', 
-        'proc_pin': 'T17', 
-        'reg_offset': 0x870, 
-        'driver_pin': 28, 
-        'proc_pin_name': 'GPMC_WAIT0', 
-        'proc_signal_name': ['gpmc_wait0', 'gmii2_crs', 'gpmc_csn4', 'rmii2_crs_dv', 'mmc1_sdcd', 'pr1_mii1_col', 'uart4_rxd', 'gpio0_30'], 
-        'reset_mode': 7, 
+        'head_name': 'UART4_RXD',
+        'proc_pin': 'T17',
+        'reg_offset': 0x870,
+        'driver_pin': 28,
+        'proc_pin_name': 'GPMC_WAIT0',
+        'proc_signal_name': ['gpmc_wait0', 'gmii2_crs', 'gpmc_csn4', 'rmii2_crs_dv', 'mmc1_sdcd', 'pr1_mii1_col', 'uart4_rxd', 'gpio0_30'],
+        'reset_mode': 7,
         'gpio_chip': 0,
         'gpio_number': 30,
         'notes': None
     },
     {
-    
+
         'head_pin':12,
         'head_name': 'GPIO1_28',
-        'proc_pin': 'U18', 
-        'reg_offset': 0x878, 
-        'driver_pin': 30, 
-        'proc_pin_name': 'GPMC_BEn1', 
-        'proc_signal_name': ['gpmc_be1n', 'gmii2_col', 'gpmc_csn6', 'mmc2_dat3', 'gpmc_dir', 'pr1_mii1_rxlink', 'mcasp0_aclkr', 'gpio1_28'], 
-        'reset_mode': 7, 
+        'proc_pin': 'U18',
+        'reg_offset': 0x878,
+        'driver_pin': 30,
+        'proc_pin_name': 'GPMC_BEn1',
+        'proc_signal_name': ['gpmc_be1n', 'gmii2_col', 'gpmc_csn6', 'mmc2_dat3', 'gpmc_dir', 'pr1_mii1_rxlink', 'mcasp0_aclkr', 'gpio1_28'],
+        'reset_mode': 7,
         'gpio_chip': 1,
         'gpio_number': 60,
         'notes': None
     },
     {
-    
+
         'head_pin':13,
-        'head_name': 'UART4_TXD', 
-        'proc_pin': 'U17', 
+        'head_name': 'UART4_TXD',
+        'proc_pin': 'U17',
         'reg_offset': 0x874,
-        'driver_pin': 29, 
-        'proc_pin_name': 'GPMC_WPn', 
-        'proc_signal_name': ['gpmc_wpn', 'gmii2_rxerr', 'gpmc_csn5', 'rmii2_rxerr', 'mmc2_sdcd', 'pr1_mii1_txen', 'uart4_txd', 'gpio0_31'], 
-        'reset_mode': 7, 
+        'driver_pin': 29,
+        'proc_pin_name': 'GPMC_WPn',
+        'proc_signal_name': ['gpmc_wpn', 'gmii2_rxerr', 'gpmc_csn5', 'rmii2_rxerr', 'mmc2_sdcd', 'pr1_mii1_txen', 'uart4_txd', 'gpio0_31'],
+        'reset_mode': 7,
         'gpio_chip': 0,
         'gpio_number': 31,
         'notes': None
     },
     {
-    
+
         'head_pin':14,
-        'head_name': 'EHRPWM1A', 
-        'proc_pin': 'U14', 
+        'head_name': 'EHRPWM1A',
+        'proc_pin': 'U14',
         'reg_offset': 0x848,
-        'driver_pin': 18, 
-        'proc_pin_name': 'GPMC_A2', 
-        'proc_signal_name': ['gpmc_a2', 'gmii2_txd3', 'rgmii2_td3', 'mmc2_dat1', 'gpmc_a18', 'pr1_mii1_txd2', 'ehrpwm1A', 'gpio1_18'], 
-        'reset_mode': 7, 
+        'driver_pin': 18,
+        'proc_pin_name': 'GPMC_A2',
+        'proc_signal_name': ['gpmc_a2', 'gmii2_txd3', 'rgmii2_td3', 'mmc2_dat1', 'gpmc_a18', 'pr1_mii1_txd2', 'ehrpwm1A', 'gpio1_18'],
+        'reset_mode': 7,
         'gpio_chip': 1,
         'gpio_number': 50,
         'notes': None
     },
     {
-    
+
         'head_pin':15,
-        'head_name': 'GPIO1_16', 
-        'proc_pin': 'R13', 
-        'reg_offset': 0x840, 
-        'driver_pin': 16, 
-        'proc_pin_name': 'GPMC_A0', 
-        'proc_signal_name': ['gpmc_a0', 'gmii2_txen', 'rgmii2_tctl', 'rmii2_txen', 'gpmc_a16', 'pr1_mii_mt1_clk', 'ehrpwm1_tripzone_input', 'gpio1_16'], 
-        'reset_mode': 7, 
+        'head_name': 'GPIO1_16',
+        'proc_pin': 'R13',
+        'reg_offset': 0x840,
+        'driver_pin': 16,
+        'proc_pin_name': 'GPMC_A0',
+        'proc_signal_name': ['gpmc_a0', 'gmii2_txen', 'rgmii2_tctl', 'rmii2_txen', 'gpmc_a16', 'pr1_mii_mt1_clk', 'ehrpwm1_tripzone_input', 'gpio1_16'],
+        'reset_mode': 7,
         'gpio_chip': 1,
         'gpio_number': 48,
         'notes': None
     },
     {
-    
+
         'head_pin':16,
-        'head_name': 'EHRPWM1B', 
-        'proc_pin': 'T14', 
-        'reg_offset': 0x84c, 
-        'driver_pin': 19, 
-        'proc_pin_name': 'GPMC_A3', 
-        'proc_signal_name': ['gpmc_a3', 'gmii2_txd2', 'rgmii2_td2', 'mmc2_dat2', 'gpmc_a19', 'pr1_mii1_txd1', 'ehrpwm1B', 'gpio1_19'], 
-        'reset_mode': 7, 
+        'head_name': 'EHRPWM1B',
+        'proc_pin': 'T14',
+        'reg_offset': 0x84c,
+        'driver_pin': 19,
+        'proc_pin_name': 'GPMC_A3',
+        'proc_signal_name': ['gpmc_a3', 'gmii2_txd2', 'rgmii2_td2', 'mmc2_dat2', 'gpmc_a19', 'pr1_mii1_txd1', 'ehrpwm1B', 'gpio1_19'],
+        'reset_mode': 7,
         'gpio_chip': 1,
         'gpio_number': 51,
         'notes': None
     },
     {
-    
+
         'head_pin':17,
-        'head_name': 'I2C1_SCL', 
-        'proc_pin': 'A16', 
-        'reg_offset': 0x95c, 
-        'driver_pin': 87, 
-        'proc_pin_name': 'SPI0_CS0', 
-        'proc_signal_name': ['spi0_cs0', 'mmc2_sdwp', 'I2C1_SCL', 'ehrpwm0_synci', 'pr1_uart0_txd', 'pr1_edio_data_in1', 'pr1_edio_data_out1', 'gpio0_5'], 
-        'reset_mode': 7, 
+        'head_name': 'I2C1_SCL',
+        'proc_pin': 'A16',
+        'reg_offset': 0x95c,
+        'driver_pin': 87,
+        'proc_pin_name': 'SPI0_CS0',
+        'proc_signal_name': ['spi0_cs0', 'mmc2_sdwp', 'I2C1_SCL', 'ehrpwm0_synci', 'pr1_uart0_txd', 'pr1_edio_data_in1', 'pr1_edio_data_out1', 'gpio0_5'],
+        'reset_mode': 7,
         'gpio_chip': 0,
         'gpio_number': 5,
         'notes': None
     },
     {
-    
+
         'head_pin':18,
-        'head_name': 'I2C1_SDA', 
-        'proc_pin': 'B16', 
-        'reg_offset': 0x958, 
-        'driver_pin': 86, 
-        'proc_pin_name': 'SPI0_D1', 
-        'proc_signal_name': ['spi0_d1', 'mmc1_sdwp', 'I2C1_SDA', 'ehrpwm0_tripzone_input', 'pr1_uart0_rxd', 'pr1_edio_data_in0', 'pr1_edio_data_out0', 'gpio0_4'], 
-        'reset_mode': 7, 
+        'head_name': 'I2C1_SDA',
+        'proc_pin': 'B16',
+        'reg_offset': 0x958,
+        'driver_pin': 86,
+        'proc_pin_name': 'SPI0_D1',
+        'proc_signal_name': ['spi0_d1', 'mmc1_sdwp', 'I2C1_SDA', 'ehrpwm0_tripzone_input', 'pr1_uart0_rxd', 'pr1_edio_data_in0', 'pr1_edio_data_out0', 'gpio0_4'],
+        'reset_mode': 7,
         'gpio_chip': 0,
         'gpio_number': 4,
         'notes': None
     },
     {
-    
+
         'head_pin':19,
-        'head_name': 'I2C2_SCL', 
-        'proc_pin': 'D17', 
-        'reg_offset': 0x97c, 
-        'driver_pin': 95, 
-        'proc_pin_name': 'UART1_RTSn', 
-        'proc_signal_name': ['uart1_rtsn', 'timer5', 'dcan0_rx', 'I2C2_SCL', 'spi1_cs1', 'pr1_uart0_rts_n', 'pr1_edc_latch1_in', 'gpio0_13'], 
-        'reset_mode': 7, 
+        'head_name': 'I2C2_SCL',
+        'proc_pin': 'D17',
+        'reg_offset': 0x97c,
+        'driver_pin': 95,
+        'proc_pin_name': 'UART1_RTSn',
+        'proc_signal_name': ['uart1_rtsn', 'timer5', 'dcan0_rx', 'I2C2_SCL', 'spi1_cs1', 'pr1_uart0_rts_n', 'pr1_edc_latch1_in', 'gpio0_13'],
+        'reset_mode': 7,
         'gpio_chip': 0,
         'gpio_number': 13,
         'notes': None
     },
     {
-    
+
         'head_pin':20,
-        'head_name': 'I2C2_SDA', 
-        'proc_pin': 'D18', 
-        'reg_offset': 0x978, 
-        'driver_pin': 94, 
-        'proc_pin_name': 'UART1_CTSn', 
-        'proc_signal_name': ['uart1_ctsn', 'timer6', 'dcan0_tx', 'I2C2_SDA', 'spi1_cs0', 'pr1_uart0_cts_n', 'pr1_edc_latch0_in', 'gpio0_12'], 
-        'reset_mode': 7, 
+        'head_name': 'I2C2_SDA',
+        'proc_pin': 'D18',
+        'reg_offset': 0x978,
+        'driver_pin': 94,
+        'proc_pin_name': 'UART1_CTSn',
+        'proc_signal_name': ['uart1_ctsn', 'timer6', 'dcan0_tx', 'I2C2_SDA', 'spi1_cs0', 'pr1_uart0_cts_n', 'pr1_edc_latch0_in', 'gpio0_12'],
+        'reset_mode': 7,
         'gpio_chip': 0,
         'gpio_number': 12,
         'notes': None
     },
     {
-    
+
         'head_pin':21,
         'head_name': 'UART2_TXD',
         'proc_pin': 'B17',
@@ -957,7 +975,7 @@ BBB_P9_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':22,
         'head_name': 'UART2_RXD',
         'proc_pin': 'A17',
@@ -971,7 +989,7 @@ BBB_P9_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':23,
         'head_name': 'GPIO1_17',
         'proc_pin': 'V14',
@@ -985,7 +1003,7 @@ BBB_P9_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':24,
         'head_name': 'UART1_TXD',
         'proc_pin': 'D15',
@@ -999,7 +1017,7 @@ BBB_P9_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':25,
         'head_name': 'GPIO3_21',
         'proc_pin': 'A14',
@@ -1013,7 +1031,7 @@ BBB_P9_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':26,
         'head_name': 'UART1_RXD',
         'proc_pin': 'D16',
@@ -1027,7 +1045,7 @@ BBB_P9_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':27,
         'head_name': 'GPIO3_19',
         'proc_pin': 'C13',
@@ -1041,7 +1059,7 @@ BBB_P9_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':28,
         'head_name': 'SPI1_CS0',
         'proc_pin': 'C12',
@@ -1055,7 +1073,7 @@ BBB_P9_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':29,
         'head_name': 'SPI1_D0',
         'proc_pin': 'B13',
@@ -1069,7 +1087,7 @@ BBB_P9_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':30,
         'head_name': 'SPI1_D1',
         'proc_pin': 'D12',
@@ -1083,7 +1101,7 @@ BBB_P9_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':31,
         'head_name': 'SPI1_SCLK',
         'proc_pin': 'A13',
@@ -1097,7 +1115,7 @@ BBB_P9_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':32,
         'head_name': 'VADC',
         'proc_pin': None,
@@ -1111,7 +1129,7 @@ BBB_P9_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':33,
         'head_name': 'AIN4',
         'proc_pin': 'C8',
@@ -1125,7 +1143,7 @@ BBB_P9_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':34,
         'head_name': 'AGND',
         'proc_pin': None,
@@ -1139,7 +1157,7 @@ BBB_P9_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':35,
         'head_name': 'AIN8',
         'proc_pin': 'A8',
@@ -1153,7 +1171,7 @@ BBB_P9_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':36,
         'head_name': 'AIN5',
         'proc_pin': 'B8',
@@ -1167,7 +1185,7 @@ BBB_P9_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':37,
         'head_name': 'AIN2',
         'proc_pin': 'B7',
@@ -1181,7 +1199,7 @@ BBB_P9_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':38,
         'head_name': 'AIN3',
         'proc_pin': 'A7',
@@ -1195,7 +1213,7 @@ BBB_P9_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':39,
         'head_name': 'AIN0',
         'proc_pin': 'B6',
@@ -1209,7 +1227,7 @@ BBB_P9_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':40,
         'head_name': 'AIN1',
         'proc_pin': 'C7',
@@ -1223,7 +1241,7 @@ BBB_P9_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':411,    #This is not a mistake
         'head_name': 'CLKOUT2',
         'proc_pin': 'D14',
@@ -1237,7 +1255,7 @@ BBB_P9_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':412,
         'head_name': 'GPIO3_20',
         'proc_pin': 'D13',
@@ -1251,7 +1269,7 @@ BBB_P9_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':421,
         'head_name': 'GPIO0_7',
         'proc_pin': 'C18',
@@ -1265,7 +1283,7 @@ BBB_P9_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':422,
         'head_name': 'GPIO3_18',
         'proc_pin': 'B12',
@@ -1279,7 +1297,7 @@ BBB_P9_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':43,
         'head_name': 'GND',
         'proc_pin': None,
@@ -1293,7 +1311,7 @@ BBB_P9_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':44,
         'head_name': 'GND',
         'proc_pin': None,
@@ -1307,7 +1325,7 @@ BBB_P9_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':45,
         'head_name': 'GND',
         'proc_pin': None,
@@ -1321,7 +1339,7 @@ BBB_P9_DEF = [
         'notes': None
     },
     {
-    
+
         'head_pin':46,
         'head_name': 'GND',
         'proc_pin': None,
