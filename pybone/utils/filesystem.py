@@ -23,8 +23,4 @@ def find_first_file(pattern):
     """
     Find first file matching a file pattern
     """
-    it = glob.iglob(pattern)
-    try:
-        return next(it)
-    except StopIteration:
-        return None
+    return glob.iglob(pattern)[0]
