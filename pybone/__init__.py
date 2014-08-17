@@ -1,5 +1,3 @@
-from pybone.board import Board
-
 VERSION = (0, 0, 1, 'alpha', 0)
 
 
@@ -13,5 +11,5 @@ _check_requirements()
 
 
 #setup version
-from ._version import get_pretty_version
-__version__ = get_pretty_version(VERSION)
+from pybone.utils.version import get_pretty_version
+version_info = get_pretty_version(VERSION)
