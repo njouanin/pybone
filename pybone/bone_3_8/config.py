@@ -15,9 +15,13 @@
 # You should have received a copy of the GNU General Public License
 # along with Pybone.  If not, see <http://www.gnu.org/licenses/>.
 
+import asyncio
 from pybone.config import Config,ConfigError
+from pybone.utils.filesystem import find_first_file
 
 __author__ = 'nico'
+
+_loop = asyncio.get_event_loop()
 
 class Linux38Config(Config):
     """
