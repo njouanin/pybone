@@ -18,7 +18,6 @@
 import platform
 import asyncio
 import logging
-from pybone.utils.filesystem import find_first_file
 
 _loop = asyncio.get_event_loop()
 
@@ -48,7 +47,7 @@ class Config:
 
 local_system = platform.system()
 local_release = platform.release()
-local_processor = platform.processor()
+local_processor = platform.processor() or platform.machine()
 try:
     from pybone.bone_3_8.config import Linux38Config
     local_config = Linux38Config(local_system, local_release, local_processor)
