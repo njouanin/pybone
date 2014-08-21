@@ -25,7 +25,6 @@ def _check_requirements():
 
 _check_requirements()
 
-
 #setup version
 from pybone.utils.version import get_pretty_version
 version_info = get_pretty_version(VERSION)
