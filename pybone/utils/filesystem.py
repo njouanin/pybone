@@ -40,4 +40,8 @@ def find_first_file(pattern):
     """
     Find first file matching a file pattern
     """
-    return glob.iglob(pattern)[0]
+    it = glob.iglob(pattern)
+    try:
+        return next(it)
+    except StopIteration:
+        return None
