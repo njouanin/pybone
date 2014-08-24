@@ -19,8 +19,11 @@ import asyncio
 import os
 import subprocess
 import datetime
+import logging
 
 loop = asyncio.get_event_loop()
+
+LOGGER = logging.getLogger(__name__)
 
 @asyncio.coroutine
 def _get_git_changeset():
