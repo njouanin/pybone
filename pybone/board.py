@@ -19,15 +19,17 @@ import asyncio
 import logging
 import re
 from enum import Enum
-from pybone.pin_desc import BBB_P8_DEF, BBB_P9_DEF, BBB_control_module_addr
+from pybone.pin_desc import BBB_P8_DEF, BBB_P9_DEF
 from pybone.utils import filesystem
 from pybone.config import local_config
 
 LOGGER = logging.getLogger(__name__)
 loop = asyncio.get_event_loop()
 
+
 class PlatformError(Exception):
     pass
+
 
 class Header(Enum):
     p8 = 'P8'
@@ -78,6 +80,7 @@ def parse_pins_line(line):
         LOGGER.warning("Failed parsing pins line '%s'." % line, e)
         return None
 
+
 def parse_pinmux_pins_file(line):
     #pin 0 (44e10800): mmc.10 (GPIO UNCLAIMED) function pinmux_emmc2_pins group pinmux_emmc2_pins
     #pin 8 (44e10820): (MUX UNCLAIMED) (GPIO UNCLAIMED)
@@ -96,7 +99,8 @@ def parse_pinmux_pins_file(line):
         pin_function = None
         pin_group = None
     elif '(MUX UNCLAIMED)' in owner_string:
-        m = re.match(r"\(MUX UNCLAIMED\) ([\(\)\w\.\d_]+) function ([\(\)\w\.\d_]+) group ([\(\)\w\.\d_]+)", owner_string)
+        m = re.match(r"\(MUX UNCLAIMED\) ([\(\)\w\.\d_]+) function ([\(\)\w\.\d_]+) group ([\(\)\w\.\d_]+)",
+                     owner_string)
         if m is None:
             LOGGER.warning("pinmux line '%s' doesn't find expected format." % line)
             return None
@@ -106,7 +110,8 @@ def parse_pinmux_pins_file(line):
             pin_function = m.group(2)
             pin_group = m.group(3)
     elif '(GPIO UNCLAIMED)' in owner_string:
-        m = re.match(r"([\(\)\w\.\d_]+) \(GPIO UNCLAIMED\) function ([\(\)\w\.\d_]+) group ([\(\)\w\.\d_]+)", owner_string)
+        m = re.match(r"([\(\)\w\.\d_]+) \(GPIO UNCLAIMED\) function ([\(\)\w\.\d_]+) group ([\(\)\w\.\d_]+)",
+                     owner_string)
         if m is None:
             LOGGER.warning("pinmux line '%s' doesn't find expected format." % line)
             return None
@@ -119,12 +124,12 @@ def parse_pinmux_pins_file(line):
         LOGGER.warning("pinmux line '%s' doesn't find expected format." % line)
         return None
 
-    return { 'index': pin_index,
-               'address': pin_address,
-               'mux_owner': pin_mux_owner,
-               'gpio_owner': pin_gpio_owner,
-               'function': pin_function,
-               'group': pin_group
+    return {'index': pin_index,
+       'address': pin_address,
+       'mux_owner': pin_mux_owner,
+       'gpio_owner': pin_gpio_owner,
+       'function': pin_function,
+       'group': pin_group
     }
 
 
@@ -136,6 +141,7 @@ def read_pins_file(pins_file):
     else:
         return None
 
+
 @asyncio.coroutine
 def read_pinmux_pins(pinmux_pins_file):
     file_content = yield from filesystem.read_async(pinmux_pins_file)
@@ -143,6 +149,7 @@ def read_pinmux_pins(pinmux_pins_file):
         return map(parse_pinmux_pins_file, file_content[2:])
     else:
         return None
+
 
 @asyncio.coroutine
 def read_board_name(board_file):
@@ -161,6 +168,7 @@ def read_board_name(board_file):
     LOGGER.debug("END read_board_name")
     return boardname
 
+
 @asyncio.coroutine
 def read_board_revision(revision_file):
     LOGGER.debug("BEGIN read_board_revision")
@@ -171,6 +179,7 @@ def read_board_revision(revision_file):
         LOGGER.debug("END read_board_revision")
         return file_content[0].strip()
 
+
 @asyncio.coroutine
 def read_board_serial_number(serial_number_file):
     LOGGER.debug("BEGIN read_board_serial_number")
@@ -180,6 +189,7 @@ def read_board_serial_number(serial_number_file):
     else:
         LOGGER.debug("END read_board_serial_number")
         return file_content[0].strip()
+
 
 class Pin(object):
     def __init__(self, board, definition):
@@ -235,6 +245,7 @@ class Pin(object):
 
 class Board(object):
     pin_reg_address = 0x44e10000
+
     def __init__(self, run_platform=local_config):
         self.platform = run_platform
         loop.run_until_complete(self._init_async())
