@@ -132,18 +132,21 @@ def parse_pinmux_pins_file(line):
 def read_pins_file(pins_file):
     file_content = yield from filesystem.read_async(pins_file)
     if file_content is not None:
-        for line in file_content[1:]:
-            yield parse_pins_line(line)
+        return map(parse_pins_line, file_content[1:])
+    else:
+        return None
 
 @asyncio.coroutine
 def read_pinmux_pins(pinmux_pins_file):
     file_content = yield from filesystem.read_async(pinmux_pins_file)
     if file_content is not None:
-        for line in file_content[2:]:
-            yield parse_pinmux_pins_file(line)
+        return map(parse_pinmux_pins_file, file_content[2:])
+    else:
+        return None
 
 @asyncio.coroutine
 def read_board_name(board_file):
+    LOGGER.debug("BEGIN read_board_name")
     file_content = yield from filesystem.read_async(board_file)
     if file_content is None:
         boardname = None
@@ -155,22 +158,27 @@ def read_board_name(board_file):
             boardname = 'BeagleBone Black'
         else:
             LOGGER.warning("Unexpected board name '%s", boardname)
+    LOGGER.debug("END read_board_name")
     return boardname
 
 @asyncio.coroutine
 def read_board_revision(revision_file):
+    LOGGER.debug("BEGIN read_board_revision")
     file_content = yield from filesystem.read_async(revision_file)
     if file_content is None:
         return None
     else:
+        LOGGER.debug("END read_board_revision")
         return file_content[0].strip()
 
 @asyncio.coroutine
 def read_board_serial_number(serial_number_file):
+    LOGGER.debug("BEGIN read_board_serial_number")
     file_content = yield from filesystem.read_async(serial_number_file)
     if file_content is None:
         return None
     else:
+        LOGGER.debug("END read_board_serial_number")
         return file_content[0].strip()
 
 class Pin(object):
@@ -237,9 +245,10 @@ class Board(object):
     @asyncio.coroutine
     def _init_async(self):
         try:
-            self.name = yield from read_board_name(self.platform.board_name_file)
-            self.revision = yield from read_board_revision(self.platform.revision_file)
-            self.serial_number = yield from read_board_serial_number(self.platform.serial_number_file)
+            (self.name, self.revision, self.serial_number) = yield from asyncio.gather(
+                read_board_name(self.platform.board_name_file),
+                read_board_revision(self.platform.revision_file),
+                read_board_serial_number(self.platform.serial_number_file))
         except AttributeError as e:
             print(e)
 
@@ -311,7 +320,8 @@ class Board(object):
         Update bord pins configuration from pinctrl files informations
         :return:
         """
-        for pins_line in read_pins_file(self.platform.pins_file):
+        pins_file_content = yield from read_pins_file(self.platform.pins_file)
+        for pins_line in pins_file_content:
             if pins_line is not None:
                 #look for pin matching the driver pin
                 pin = self.get_pin(address=pins_line['address'])
@@ -319,7 +329,8 @@ class Board(object):
                     pin.update_from_pins(pins_line)
                 else:
                     LOGGER.debug("No pin definition matching address '0x%x' from 'pins' file was not found" % pins_line['address'])
-        for pinmux_pins_line in read_pinmux_pins(self.platform.pinmux_pins_file):
+        pinmux_pins_file_content = yield from read_pinmux_pins(self.platform.pinmux_pins_file)
+        for pinmux_pins_line in pinmux_pins_file_content:
             #look for pin matching the driver pin
             if pinmux_pins_line is not None:
                 pin = self.get_pin(address=pinmux_pins_line['address'])
