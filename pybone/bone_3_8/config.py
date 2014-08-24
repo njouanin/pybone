@@ -16,23 +16,25 @@
 # along with Pybone.  If not, see <http://www.gnu.org/licenses/>.
 
 import asyncio
-from pybone.config import Config,ConfigError
+from pybone.config import Config, ConfigError
 from pybone.utils.filesystem import find_first_file
 
 __author__ = 'nico'
 
+_BOARD_NAME_FILE = '/sys/devices/bone_capemgr.*/baseboard/board-name'
+_REVISION_FILE = '/sys/devices/bone_capemgr.*/baseboard/revision'
+_SERIAL_NUMBER_FILE = '/sys/devices/bone_capemgr.*/baseboard/serial-number'
+_PINS_FILE = '/sys/kernel/debug/pinctrl/44e10800.pinmux/pins'
+_PINMUX_FILE = '/sys/kernel/debug/pinctrl/44e10800.pinmux/pinmux-pins'
+
 _loop = asyncio.get_event_loop()
+
 
 class Linux38Config(Config):
     """
     Linux running on BeagleBone platform
     This should match the system configuration running on a beagleboard
     """
-    _board_name_file_pattern = '/sys/devices/bone_capemgr.*/baseboard/board-name'
-    _revision_file_pattern = '/sys/devices/bone_capemgr.*/baseboard/revision'
-    _serial_number_file_pattern = '/sys/devices/bone_capemgr.*/baseboard/serial-number'
-    _pins_file_pattern = '/sys/kernel/debug/pinctrl/44e10800.pinmux/pins'
-    _pinmux_pins_file_pattern = '/sys/kernel/debug/pinctrl/44e10800.pinmux/pinmux-pins'
 
     def __init__(self, system_name, kernel_release, processor):
         super().__init__(system_name, kernel_release, processor)
@@ -46,8 +48,12 @@ class Linux38Config(Config):
         _loop.run_until_complete(self.__init_async())
 
     def __init_async(self):
-        self.board_name_file = yield from find_first_file(Linux38Config._board_name_file_pattern)
-        self.revision_file = yield from find_first_file(Linux38Config._revision_file_pattern)
-        self.serial_number_file = yield from find_first_file(Linux38Config._serial_number_file_pattern)
-        self.pins_file = yield from find_first_file(Linux38Config._pins_file_pattern)
-        self.pinmux_pins_file = yield from find_first_file(Linux38Config._pinmux_pins_file_pattern)
+        (self.board_name_file,
+         self.revision_file,
+         self.serial_number_file,
+         self.pins_file,
+         self.pinmux_pins_file) = yield from asyncio.gather(find_first_file(_BOARD_NAME_FILE),
+                                                              find_first_file(_REVISION_FILE),
+                                                              find_first_file(_SERIAL_NUMBER_FILE),
+                                                              find_first_file(_PINS_FILE),
+                                                              find_first_file(_PINMUX_FILE))
