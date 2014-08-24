@@ -18,21 +18,36 @@
 import asyncio
 import logging
 import glob
+import concurrent.futures
+
+_loop = asyncio.get_event_loop()
 
 LOGGER = logging.getLogger(__name__)
+
+
+def long_read_file(file):
+    try:
+        LOGGER.debug("BEGIN long_read_file %s" % file)
+        fp = open(file)
+    except PermissionError:
+        LOGGER.warning("Permission error while reading %s. Consider running as root or some sudoers." % file)
+        return None
+    except Exception as e:
+        LOGGER.warning("Exception while reading file %s : %s" % (file, e))
+    else:
+        lines = fp.readlines()
+        fp.close()
+        LOGGER.debug("END long_read_file %s" % file)
+        return lines
+
 
 @asyncio.coroutine
 def read_async(file):
     """
     File reading coroutine
     """
-    try:
-        fp = open(file)
-    except PermissionError:
-        LOGGER.warning("Permission error while reading %s. Consider running as root or some sudoers." % file)
-        return None
-    else:
-        return fp.readlines()
+    lines = yield from _loop.run_in_executor(None, long_read_file, file)
+    return lines
 
 
 @asyncio.coroutine
@@ -40,7 +55,7 @@ def find_first_file(pattern):
     """
     Find first file matching a file pattern
     """
-    it = glob.iglob(pattern)
+    it = yield from _loop.run_in_executor(None, glob.iglob, pattern)
     try:
         return next(it)
     except StopIteration:
