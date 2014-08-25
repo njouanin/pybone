@@ -1,6 +1,6 @@
 import os
 import unittest
-from pybone.config import Config
+from pybone.platform import Config
 from pybone.board import *
 from pybone import pin_desc
 

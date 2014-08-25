@@ -21,7 +21,7 @@ import re
 from enum import Enum
 from pybone.pin_desc import BBB_P8_DEF, BBB_P9_DEF
 from pybone.utils import filesystem
-from pybone.config import local_config
+from pybone.platform import local_config
 
 LOGGER = logging.getLogger(__name__)
 loop = asyncio.get_event_loop()
@@ -255,13 +255,10 @@ class Board(object):
 
     @asyncio.coroutine
     def _init_async(self):
-        try:
-            (self.name, self.revision, self.serial_number) = yield from asyncio.gather(
-                read_board_name(self.platform.board_name_file),
-                read_board_revision(self.platform.revision_file),
-                read_board_serial_number(self.platform.serial_number_file))
-        except AttributeError as e:
-            print(e)
+        (self.name, self.revision, self.serial_number) = yield from asyncio.gather(
+            read_board_name(self.platform.board_name_file),
+            read_board_revision(self.platform.revision_file),
+            read_board_serial_number(self.platform.serial_number_file))
 
     def _load_pins(self, header):
         """

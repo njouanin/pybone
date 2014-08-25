@@ -18,31 +18,36 @@
 import platform
 import asyncio
 import logging
+import multiprocessing
 
 _loop = asyncio.get_event_loop()
 
 LOGGER = logging.getLogger(__name__)
 
 
-class ConfigError(Exception):
+class PlatformError(Exception):
     pass
 
 
-class Config:
+class Platform:
     """
-    Base class for board configuration
+    Base class for platform configuration
     """
-    def __init__(self, system_name, kernel_release, processor):
-        self.system_name = system_name
-        self.kernel_release = kernel_release
-        self.processor = processor
+    def __init__(self):
+        self.os_name = platform.system()
+        self.os_release = platform.release()
+        self.processor = platform.processor() or platform.machine()
+        try:
+            self.processor_count = multiprocessing.cpu_count()
+        except NotImplemented:
+            self.processor_count = 1
+
 
     def __repr__(self):
-        return "%s(system_name=%r,kernel_release=%r,processor=%r)" % \
-          (self.__class__.__name__,
-          self.system_name,
-          self.kernel_release,
-          self.processor)
+        return "%s(system_name=%r,kernel_release=%r,processor=%r)" % (self.__class__.__name__,
+                                                                      self.os_name,
+                                                                      self.os_release,
+                                                                      self.processor)
 
 
 local_system = platform.system()
