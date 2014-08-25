@@ -35,7 +35,7 @@ class Platform:
     """
     def __init__(self):
         self.os_name = platform.system()
-        self.os_release = platform.release()
+        self.kernel_release = platform.release()
         self.processor = platform.processor() or platform.machine()
         try:
             self.processor_count = multiprocessing.cpu_count()
@@ -49,6 +49,7 @@ class Platform:
                                                                       self.os_release,
                                                                       self.processor)
 
+from .linux_3_8 import Linux38Platform
 
 #try:
 #    from pybone.bone_3_8.config import Linux38Config

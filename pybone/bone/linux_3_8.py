@@ -16,8 +16,8 @@
 # along with Pybone.  If not, see <http://www.gnu.org/licenses/>.
 
 import asyncio
+from bone import Platform, PlatformError
 
-from platform import Config, ConfigError
 from pybone.utils.filesystem import find_first_file
 
 
@@ -32,20 +32,20 @@ _PINMUX_FILE = '/sys/kernel/debug/pinctrl/44e10800.pinmux/pinmux-pins'
 _loop = asyncio.get_event_loop()
 
 
-class Linux38Config(Config):
+class Linux38Platform(Platform):
     """
     Linux running on BeagleBone platform
     This should match the system configuration running on a beagleboard
     """
 
-    def __init__(self, system_name, kernel_release, processor):
-        super().__init__(system_name, kernel_release, processor)
-        if 'Linux' not in self.system_name:
-            raise ConfigError("Unexpected system name '%r'" % self.system_name)
+    def __init__(self):
+        super().__init__()
+        if 'Linux' not in self.os_name:
+            raise PlatformError("Unexpected system name '%r'" % self.system_name)
         elif '3.8' not in self.kernel_release:
-            raise ConfigError("Unexpected kernel release '%r'" % self.kernel_release)
+            raise PlatformError("Unexpected kernel release '%r'" % self.kernel_release)
         elif 'arm' not in self.processor:
-            raise ConfigError("Unexpected processor '%r'" % self.processor)
+            raise PlatformError("Unexpected processor '%r'" % self.processor)
 
         _loop.run_until_complete(self.__init_async())
 
@@ -55,7 +55,7 @@ class Linux38Config(Config):
          self.serial_number_file,
          self.pins_file,
          self.pinmux_pins_file) = yield from asyncio.gather(find_first_file(_BOARD_NAME_FILE),
-                                                              find_first_file(_REVISION_FILE),
-                                                              find_first_file(_SERIAL_NUMBER_FILE),
-                                                              find_first_file(_PINS_FILE),
-                                                              find_first_file(_PINMUX_FILE))
+                                                            find_first_file(_REVISION_FILE),
+                                                            find_first_file(_SERIAL_NUMBER_FILE),
+                                                            find_first_file(_PINS_FILE),
+                                                            find_first_file(_PINMUX_FILE))
