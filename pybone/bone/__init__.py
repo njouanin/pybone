@@ -33,6 +33,12 @@ class Platform:
     """
     Base class for platform configuration
     """
+    def __repr__(self):
+        return "%s(system_name=%r,kernel_release=%r,processor=%r)" % (self.__class__.__name__,
+                                                                      self.os_name,
+                                                                      self.kernel_release,
+                                                                      self.processor)
+
     def __init__(self):
         self.os_name = platform.system()
         self.kernel_release = platform.release()
@@ -42,12 +48,8 @@ class Platform:
         except NotImplemented:
             self.processor_count = 1
 
-
-    def __repr__(self):
-        return "%s(system_name=%r,kernel_release=%r,processor=%r)" % (self.__class__.__name__,
-                                                                      self.os_name,
-                                                                      self.os_release,
-                                                                      self.processor)
+    def read_board_info(self):
+        pass
 
 from .linux_3_8 import Linux38Platform
 
