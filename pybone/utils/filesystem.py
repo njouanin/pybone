@@ -18,7 +18,6 @@
 import asyncio
 import logging
 import glob
-import concurrent.futures
 
 _loop = asyncio.get_event_loop()
 
