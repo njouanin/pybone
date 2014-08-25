@@ -15,10 +15,10 @@
 # You should have received a copy of the GNU General Public License
 # along with Pybone.  If not, see <http://www.gnu.org/licenses/>.
 
-import platform
 import asyncio
 import logging
 import multiprocessing
+import platform
 
 _loop = asyncio.get_event_loop()
 
@@ -50,12 +50,9 @@ class Platform:
                                                                       self.processor)
 
 
-local_system = platform.system()
-local_release = platform.release()
-local_processor = platform.processor() or platform.machine()
-try:
-    from pybone.bone_3_8.config import Linux38Config
-    local_config = Linux38Config(local_system, local_release, local_processor)
-except ConfigError:
-    LOGGER.warn("Not running on a BBB")
-    local_config = Config(local_system, local_release, local_processor)
+#try:
+#    from pybone.bone_3_8.config import Linux38Config
+#    local_config = Linux38Config(local_system, local_release, local_processor)
+#except PlatformError:
+#    LOGGER.warn("Not running on a BBB")
+#    local_config = Platform(local_system, local_release, local_processor)

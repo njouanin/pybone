@@ -16,8 +16,10 @@
 # along with Pybone.  If not, see <http://www.gnu.org/licenses/>.
 
 import asyncio
-from pybone.platform import Config, ConfigError
+
+from platform import Config, ConfigError
 from pybone.utils.filesystem import find_first_file
+
 
 __author__ = 'nico'
 

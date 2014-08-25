@@ -1,6 +1,7 @@
 import os
 import unittest
-from pybone.platform import Config
+
+from pybone.bone import Platform
 from pybone.board import *
 from pybone import pin_desc
 
@@ -8,7 +9,7 @@ from pybone import pin_desc
 class ParsePinMuxTestFunction(unittest.TestCase):
 
     def init_board(self):
-        pf = Config('system_name', 'kernel_release', 'processor')
+        pf = Platform()
         pf.board_name_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), "resources/board-name")
         pf.revision_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), "resources/revision")
         pf.serial_number_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), "resources/serial-number")

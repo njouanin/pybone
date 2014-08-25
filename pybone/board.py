@@ -19,9 +19,10 @@ import asyncio
 import logging
 import re
 from enum import Enum
+
 from pybone.pin_desc import BBB_P8_DEF, BBB_P9_DEF
 from pybone.utils import filesystem
-from pybone.platform import local_config
+
 
 LOGGER = logging.getLogger(__name__)
 loop = asyncio.get_event_loop()
@@ -246,7 +247,7 @@ class Pin(object):
 class Board(object):
     pin_reg_address = 0x44e10000
 
-    def __init__(self, run_platform=local_config):
+    def __init__(self, run_platform):
         self.platform = run_platform
         loop.run_until_complete(self._init_async())
         self.pins = [pin for pin in self._load_pins(Header.p8)]
