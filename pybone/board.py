@@ -249,17 +249,10 @@ class Board(object):
 
     def __init__(self, run_platform):
         self.platform = run_platform
-        loop.run_until_complete(self._init_async())
+        (self.name, self.revision, self.serial_number) = self.platform.read_board_info()
         self.pins = [pin for pin in self._load_pins(Header.p8)]
         self.pins += [pin for pin in self._load_pins(Header.p9)]
-        loop.run_until_complete(self._update_from_pinctrl())
-
-    @asyncio.coroutine
-    def _init_async(self):
-        (self.name, self.revision, self.serial_number) = yield from asyncio.gather(
-            read_board_name(self.platform.board_name_file),
-            read_board_revision(self.platform.revision_file),
-            read_board_serial_number(self.platform.serial_number_file))
+        #loop.run_until_complete(self._update_from_pinctrl())
 
     def _load_pins(self, header):
         """

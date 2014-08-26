@@ -99,9 +99,10 @@ class Linux38Platform(Platform):
                                                             filesystem.find_first_file(_PINS_FILE),
                                                             filesystem.find_first_file(_PINMUX_FILE))
 
-    @asyncio.coroutine
     def read_board_info(self):
-        yield from asyncio.gather(
-            read_board_name(self.board_name_file),
-            read_board_revision(self.revision_file),
-            read_board_serial_number(self.serial_number_file))
+        board_name = asyncio.async(read_board_name(self.board_name_file))
+        board_revision = asyncio.async(read_board_revision(self.revision_file))
+        board_serial_number = asyncio.async(read_board_serial_number(self.serial_number_file))
+
+        _loop.run_until_complete(asyncio.wait([board_name, board_revision, board_serial_number]))
+        return board_name, board_revision, board_serial_number
