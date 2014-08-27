@@ -51,6 +51,9 @@ class Platform:
     def read_board_info(self):
         pass
 
+    def iterate_pins_file(self):
+        pass
+
 from .linux_3_8 import Linux38Platform
 
 #try:

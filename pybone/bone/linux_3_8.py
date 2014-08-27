@@ -22,8 +22,6 @@ from pybone.utils import filesystem
 
 LOGGER = logging.getLogger(__name__)
 
-_loop = asyncio.get_event_loop()
-
 
 def get_board_name(board_id):
     boards = {
@@ -83,7 +81,7 @@ class Linux38Platform(Platform):
     _PINMUX_FILE = '/sys/kernel/debug/pinctrl/44e10800.pinmux/pinmux-pins'
 
 
-    def __init__(self):
+    def __init__(self, loop=None):
         super().__init__()
         if 'Linux' not in self.os_name:
             raise PlatformError("Unexpected system name '%r'" % self.os_name)
@@ -92,28 +90,41 @@ class Linux38Platform(Platform):
         elif 'arm' not in self.processor:
             raise PlatformError("Unexpected processor '%r'" % self.processor)
 
-        _loop.run_until_complete(self.__init_async())
-
-    @asyncio.coroutine
-    def __init_async(self):
+        if loop is None:
+            self._loop = asyncio.get_event_loop()
+        else:
+            self._loop = loop
         (self.board_name_file,
          self.revision_file,
          self.serial_number_file,
          self.pins_file,
-         self.pinmux_pins_file) = yield from asyncio.gather(
+         self.pinmux_pins_file) = self._loop.run_until_complete(asyncio.gather(
             filesystem.find_first_file(Linux38Platform._BOARD_NAME_FILE),
             filesystem.find_first_file(Linux38Platform._REVISION_FILE),
             filesystem.find_first_file(Linux38Platform._SERIAL_NUMBER_FILE),
             filesystem.find_first_file(Linux38Platform._PINS_FILE),
-            filesystem.find_first_file(Linux38Platform._PINMUX_FILE))
+            filesystem.find_first_file(Linux38Platform._PINMUX_FILE)))
 
-    def read_board_info(self):
+    def read_board_info(self, loop=None):
+        if loop is None:
+            self._loop = asyncio.get_event_loop()
+        else:
+            self._loop = loop
         board_name = asyncio.async(read_board_name(self.board_name_file))
         board_revision = asyncio.async(read_board_revision(self.revision_file))
         board_serial_number = asyncio.async(read_board_serial_number(self.serial_number_file))
 
-        _loop.run_until_complete(asyncio.wait([board_name, board_revision, board_serial_number]))
+        self._loop.run_until_complete(asyncio.wait([board_name, board_revision, board_serial_number]))
         return board_name, board_revision, board_serial_number
 
-    def iterate_pins_file(self):
-        pass
+    def iterate_pins_file(self, loop=None):
+        if loop is None:
+            self._loop = asyncio.get_event_loop()
+        else:
+            self._loop = loop
+        file_content = asyncio.async(filesystem.read_async(self.pins_file))
+        self._loop.run_until_complete(file_content)
+        if file_content is not None:
+            return map(parse_pins_line, file_content[1:])
+        else:
+            return None
