@@ -22,28 +22,29 @@ from pybone.utils import filesystem
 
 LOGGER = logging.getLogger(__name__)
 
-_BOARD_NAME_FILE = '/sys/devices/bone_capemgr.*/baseboard/board-name'
-_REVISION_FILE = '/sys/devices/bone_capemgr.*/baseboard/revision'
-_SERIAL_NUMBER_FILE = '/sys/devices/bone_capemgr.*/baseboard/serial-number'
-_PINS_FILE = '/sys/kernel/debug/pinctrl/44e10800.pinmux/pins'
-_PINMUX_FILE = '/sys/kernel/debug/pinctrl/44e10800.pinmux/pinmux-pins'
-
 _loop = asyncio.get_event_loop()
+
+
+def get_board_name(board_id):
+    boards = {
+        'A335BONE': 'BeagleBone',
+        'A335BNLT': 'BeagleBone Black'
+    }
+    try:
+        board_name = boards[board_id]
+    except KeyError:
+        board_name = None
+    return board_name
 
 
 @asyncio.coroutine
 def read_board_name(board_file):
     LOGGER.debug("BEGIN read_board_name")
-    board_name = None
     file_content = yield from filesystem.read_async(board_file)
-    if file_content:
-        board_name = file_content[0].strip()
-        if board_name == 'A335BONE':
-            board_name = 'BeagleBone'
-        elif board_name == 'A335BNLT':
-            board_name = 'BeagleBone Black'
-        else:
-            LOGGER.warning("Unexpected board name '%s", board_name)
+    board_id = file_content[0].strip()
+    board_name = get_board_name(board_id)
+    if board_name is None:
+        LOGGER.warning("Unexpected board id '%s", board_id)
     LOGGER.debug("END read_board_name")
     return board_name
 
@@ -75,6 +76,12 @@ class Linux38Platform(Platform):
     Linux running on BeagleBone platform
     This should match the system configuration running on a beagleboard
     """
+    _BOARD_NAME_FILE = '/sys/devices/bone_capemgr.*/baseboard/board-name'
+    _REVISION_FILE = '/sys/devices/bone_capemgr.*/baseboard/revision'
+    _SERIAL_NUMBER_FILE = '/sys/devices/bone_capemgr.*/baseboard/serial-number'
+    _PINS_FILE = '/sys/kernel/debug/pinctrl/44e10800.pinmux/pins'
+    _PINMUX_FILE = '/sys/kernel/debug/pinctrl/44e10800.pinmux/pinmux-pins'
+
 
     def __init__(self):
         super().__init__()
@@ -93,11 +100,12 @@ class Linux38Platform(Platform):
          self.revision_file,
          self.serial_number_file,
          self.pins_file,
-         self.pinmux_pins_file) = yield from asyncio.gather(filesystem.find_first_file(_BOARD_NAME_FILE),
-                                                            filesystem.find_first_file(_REVISION_FILE),
-                                                            filesystem.find_first_file(_SERIAL_NUMBER_FILE),
-                                                            filesystem.find_first_file(_PINS_FILE),
-                                                            filesystem.find_first_file(_PINMUX_FILE))
+         self.pinmux_pins_file) = yield from asyncio.gather(
+            filesystem.find_first_file(Linux38Platform._BOARD_NAME_FILE),
+            filesystem.find_first_file(Linux38Platform._REVISION_FILE),
+            filesystem.find_first_file(Linux38Platform._SERIAL_NUMBER_FILE),
+            filesystem.find_first_file(Linux38Platform._PINS_FILE),
+            filesystem.find_first_file(Linux38Platform._PINMUX_FILE))
 
     def read_board_info(self):
         board_name = asyncio.async(read_board_name(self.board_name_file))
@@ -106,3 +114,6 @@ class Linux38Platform(Platform):
 
         _loop.run_until_complete(asyncio.wait([board_name, board_revision, board_serial_number]))
         return board_name, board_revision, board_serial_number
+
+    def iterate_pins_file(self):
+        pass
