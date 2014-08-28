@@ -51,7 +51,12 @@ class Platform:
     def read_board_info(self):
         pass
 
-    def iterate_pins_file(self):
+    @asyncio.coroutine
+    def read_pins_file(self):
+        pass
+
+    @asyncio.coroutine
+    def read_pinmux_pins(self):
         pass
 
 from .linux_3_8 import Linux38Platform
