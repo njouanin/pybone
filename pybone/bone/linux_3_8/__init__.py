@@ -116,8 +116,8 @@ class Linux38Platform(Platform):
         board_revision = asyncio.async(read_board_revision(self.revision_file))
         board_serial_number = asyncio.async(read_board_serial_number(self.serial_number_file))
 
-        self._loop.run_until_complete(asyncio.wait([board_name, board_revision, board_serial_number]))
-        return board_name, board_revision, board_serial_number
+        #returns (board_name, board_revision, board_serial_number) results
+        return self._loop.run_until_complete(asyncio.gather(board_name, board_revision, board_serial_number))
 
     @asyncio.coroutine
     def read_pins_file(self):
