@@ -4,6 +4,9 @@ from unittest.mock import patch
 from unittest.mock import MagicMock
 from pybone.bone import Linux38Platform, PlatformError
 from pybone.bone.linux_3_8 import get_board_name
+from pybone.bone.linux_3_8.pinctrl import parse_pinmux_pins_file, parse_pins_line
+from pybone.bone.pin import RegSlewEnum, RegPullEnum, RegPullTypeEnum
+
 
 class Linux38PlatformTest(unittest.TestCase):
     _TEST_BOARD_NAME_FILE = os.path.join(os.path.dirname(os.path.realpath(__file__)), "resources/board-name")
@@ -64,3 +67,43 @@ class Linux38PlatformTest(unittest.TestCase):
         self.assertEquals(pf.serial_number_file, Linux38PlatformTest._TEST_SERIAL_NUMBER_FILE)
         self.assertEquals(pf.pins_file, Linux38PlatformTest._TEST_PINS_FILE)
         self.assertEquals(pf.pinmux_pins_file, Linux38PlatformTest._TEST_PINMUX_FILE)
+
+    def test_parse_pins_line(self):
+        line = "pin 0 (44e10800) 00000031 pinctrl-single"
+        pin = parse_pins_line(line)
+        self.assertEqual(0, pin['index'])
+        self.assertEqual(0x44e10800, pin['address'])
+        self.assertEqual( (0x31 & 0x07), pin['reg']['mode'])
+        self.assertEqual(RegSlewEnum.fast, pin['reg']['slew'])
+        self.assertEqual( RegPullEnum.disabled, pin['reg']['pull'])
+        self.assertEqual( RegPullTypeEnum.pullup, pin['reg']['pulltype'])
+
+    def test_parse_pinmux_pins_line(self):
+        line = "pin 0 (44e10800): mmc.10 (GPIO UNCLAIMED) function pinmux_emmc2_pins group pinmux_emmc2_pins"
+        pin = parse_pinmux_pins_file(line)
+        self.assertEqual(0, pin['index'])
+        self.assertEqual(0x44e10800, pin['address'])
+        self.assertEqual('mmc.10', pin['mux_owner'])
+        self.assertEqual(None, pin['gpio_owner'])
+        self.assertEqual('pinmux_emmc2_pins', pin['function'])
+        self.assertEqual('pinmux_emmc2_pins', pin['group'])
+
+    def test_parse_pinmux_pins_line2(self):
+        line = "pin 0 (44e10800): (MUX UNCLAIMED) (GPIO UNCLAIMED)"
+        pin = parse_pinmux_pins_file(line)
+        self.assertEqual(0, pin['index'])
+        self.assertEqual(0x44e10800, pin['address'])
+        self.assertEqual(None, pin['mux_owner'])
+        self.assertEqual(None, pin['gpio_owner'])
+        self.assertEqual(None, pin['function'])
+        self.assertEqual(None, pin['group'])
+
+    def test_parse_pinmux_pins_line3(self):
+        line = "pin 0 (44e10800): (MUX UNCLAIMED) gpio.test function gpio_pins group gpio_pins"
+        pin = parse_pinmux_pins_file(line)
+        self.assertEqual(0, pin['index'])
+        self.assertEqual(0x44e10800, pin['address'])
+        self.assertEqual(None, pin['mux_owner'])
+        self.assertEqual('gpio.test', pin['gpio_owner'])
+        self.assertEqual('gpio_pins', pin['function'])
+        self.assertEqual('gpio_pins', pin['group'])
