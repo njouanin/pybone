@@ -101,6 +101,7 @@ class Board(object):
             return next(iterator)
         except Exception as e:
             LOGGER.debug("No pin matching args header='%s', driver_pin='%s', address='0x%x'" % (header, driver_pin, address))
+            return None
 
     def _init_from_pinctrl(self, loop=None):
         """
