@@ -20,6 +20,7 @@ import logging
 from enum import Enum
 
 from pybone.pin_desc import BBB_P8_DEF, BBB_P9_DEF
+from pybone.bone.pin import Pin
 
 
 LOGGER = logging.getLogger(__name__)
@@ -31,60 +32,7 @@ class Header(Enum):
     board = 'board'
 
 
-class Pin(object):
-    def __init__(self, board, definition):
-        self.board = board
-        self.header = definition['header']
-        self.header_pin = definition['head_pin']
-        self.header_name = definition['head_name']
-        self.proc_pin = definition['proc_pin']
-        self.proc_pin_name = definition['proc_pin_name']
-        self.proc_signal_name = definition['proc_signal_name']
-        self.reg_offset = definition['reg_offset']
-        self.driver_pin = definition['driver_pin']
-        self.reset_mode = definition['reset_mode']
-        self.gpio_chip = definition['gpio_chip']
-        self.gpio_number = definition['gpio_number']
-
-    def update_from_pins(self, pins_info):
-        if self.address == pins_info['address']:
-            self.register_mode = pins_info['reg']['mode']
-            self.register_slew = pins_info['reg']['slew']
-            self.register_receive = pins_info['reg']['receive']
-            self.register_pull = pins_info['reg']['pull']
-            self.register_pulltype = pins_info['reg']['pulltype']
-        else:
-            LOGGER.debug("Pin address configuration '0x%x' doesn't match pins address '0x%x" % (self.address, pins_info['address']))
-
-    def update_from_pinmux_pins(self, pinmux_info):
-        if self.address == pinmux_info['address']:
-            self.mux_owner = pinmux_info['mux_owner']
-            self.gpio_owner = pinmux_info['gpio_owner']
-            self.function = pinmux_info['function']
-            self.group = pinmux_info['group']
-        else:
-            LOGGER.debug("Pin address configuration '0x%x' doesn't match pinmux address '0x%x" % (self.address, pinmux_info['address']))
-
-    @property
-    def address(self):
-        if self.reg_offset is not None:
-            return Board.pin_reg_address + self.reg_offset
-        else:
-            return 0
-
-    @property
-    def key(self):
-        return "%s_%d" % (self.header.value, self.header_pin)
-
-    def __repr__(self):
-        sb = []
-        for key in self.__dict__:
-            sb.append("%r=%r" % (key, self.__dict__[key]))
-        return "Pin(" + ','.join(sb) + ")"
-
-
 class Board(object):
-    pin_reg_address = 0x44e10000
 
     def __init__(self, run_platform):
         self.platform = run_platform
@@ -105,7 +53,6 @@ class Board(object):
             definitions = BBB_P9_DEF
         else:
             return None
-
         for pin_def in definitions:
             pin_def['header'] = header
             yield Pin(self, pin_def)
