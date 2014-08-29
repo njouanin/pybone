@@ -3,6 +3,7 @@ from pybone.board import Board
 
 pf = detect_platform()
 b = Board(pf)
-print(b.name)
-print(b.serial_number)
-print(b.revision)
+
+print("Board name: %s" % b.name)
+print("Revision : %s" % b.revision)
+print("Serial number: %s" % b.serial_number)
