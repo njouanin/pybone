@@ -61,6 +61,13 @@ class Platform:
 
 from .linux_3_8 import Linux38Platform
 
+
+def detect_platform():
+    try:
+        pf = Linux38Platform()
+    except PlatformError:
+        pf = Platform()
+    return pf
 #try:
 #    from pybone.bone_3_8.config import Linux38Config
 #    local_config = Linux38Config(local_system, local_release, local_processor)
