@@ -20,14 +20,14 @@ class Linux38PlatformTest(unittest.TestCase):
         self.assertEquals('BeagleBone Black', get_board_name('A335BNLT'))
         self.assertIsNone(get_board_name('Something'))
 
-    @patch('pybone.bone.platform')
+    @patch('pybone.bone.platform.platform')
     def test_init_platform(self, mock_platform):
         mock_platform.system = MagicMock(return_value='Linux')
         mock_platform.release = MagicMock(return_value='3.8')
         mock_platform.processor = MagicMock(return_value='arm')
         Linux38Platform()
 
-    @patch('pybone.bone.platform')
+    @patch('pybone.bone.platform.platform')
     def test_init_platform_fail_system(self, mock_platform):
         mock_platform.system = MagicMock(return_value='Windows')
         mock_platform.release = MagicMock(return_value='3.8')
@@ -35,7 +35,7 @@ class Linux38PlatformTest(unittest.TestCase):
         with self.assertRaises(PlatformError):
             Linux38Platform()
 
-    @patch('pybone.bone.platform')
+    @patch('pybone.bone.platform.platform')
     def test_init_platform_fail_release(self, mock_platform):
         mock_platform.system = MagicMock(return_value='Linux')
         mock_platform.release = MagicMock(return_value='2.6')
@@ -43,7 +43,7 @@ class Linux38PlatformTest(unittest.TestCase):
         with self.assertRaises(PlatformError):
             Linux38Platform()
 
-    @patch('pybone.bone.platform')
+    @patch('pybone.bone.platform.platform')
     def test_init_platform_fail_processor(self, mock_platform):
         mock_platform.system = MagicMock(return_value='Linux')
         mock_platform.release = MagicMock(return_value='3.8')
@@ -51,7 +51,7 @@ class Linux38PlatformTest(unittest.TestCase):
         with self.assertRaises(PlatformError):
             Linux38Platform()
 
-    @patch('pybone.bone.platform')
+    @patch('pybone.bone.platform.platform')
     @patch.object(Linux38Platform, '_BOARD_NAME_FILE', _TEST_BOARD_NAME_FILE)
     @patch.object(Linux38Platform, '_REVISION_FILE', _TEST_REVISION_FILE)
     @patch.object(Linux38Platform, '_SERIAL_NUMBER_FILE',_TEST_SERIAL_NUMBER_FILE)

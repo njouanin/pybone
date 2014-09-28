@@ -7,8 +7,8 @@ from pybone.bone import Platform
 
 class PlatformTest(unittest.TestCase):
 
-    @patch('pybone.bone.platform')
-    @patch('pybone.bone.multiprocessing')
+    @patch('pybone.bone.platform.platform')
+    @patch('pybone.bone.platform.multiprocessing')
     def test_init_platform(self, mock_multiprocessing, mock_platform):
         Platform()
         mock_platform.system.assert_called_once_with()
