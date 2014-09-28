@@ -112,12 +112,17 @@ class Linux38Platform(Platform):
             self._loop = asyncio.get_event_loop()
         else:
             self._loop = loop
-        board_name = asyncio.async(read_board_name(self.board_name_file))
-        board_revision = asyncio.async(read_board_revision(self.revision_file))
-        board_serial_number = asyncio.async(read_board_serial_number(self.serial_number_file))
+        t1 = asyncio.async(read_board_name(self.board_name_file))
+        t2 = asyncio.async(read_board_revision(self.revision_file))
+        t3 = asyncio.async(read_board_serial_number(self.serial_number_file))
 
         #returns (board_name, board_revision, board_serial_number) results
-        return self._loop.run_until_complete(asyncio.gather(board_name, board_revision, board_serial_number))
+        try:
+            (board_name, board_revision, board_serial_number) = \
+                self._loop.run_until_complete(asyncio.gather(t1, t2, t3))
+        except Exception:
+            raise PlatformError("Error while reading board informations")
+        return board_name, board_revision, board_serial_number
 
     @asyncio.coroutine
     def read_pins_file(self):
