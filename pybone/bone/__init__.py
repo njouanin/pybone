@@ -17,7 +17,7 @@
 from .platform import PlatformError
 from .platform import Platform
 
-from .linux_3_8 import Linux38Platform
+from .linux_3_8.platform import Linux38Platform
 
 
 def detect_platform():

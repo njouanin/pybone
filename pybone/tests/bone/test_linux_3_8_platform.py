@@ -3,7 +3,7 @@ import os
 from unittest.mock import patch
 from unittest.mock import MagicMock
 from pybone.bone import Linux38Platform, PlatformError
-from pybone.bone.linux_3_8 import get_board_name
+from pybone.bone.linux_3_8.platform import get_board_name
 from pybone.bone.linux_3_8.pinctrl import parse_pinmux_pins_file, parse_pins_line
 from pybone.bone.pin import RegSlewEnum, RegPullEnum, RegPullTypeEnum
 
