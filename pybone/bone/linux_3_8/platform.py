@@ -93,11 +93,11 @@ class Linux38Platform(Platform):
     def __init__(self, loop=None):
         super().__init__()
         if 'Linux' not in self.os_name:
-            raise PlatformError("Unexpected system name '%r'" % self.os_name)
+            raise PlatformError("Expected Linux OS, found '%r'" % self.os_name)
         elif '3.8' not in self.kernel_release:
-            raise PlatformError("Unexpected kernel release '%r'" % self.kernel_release)
+            raise PlatformError("Expected kernel 3.8, found release '%r'" % self.kernel_release)
         elif 'arm' not in self.processor:
-            raise PlatformError("Unexpected processor '%r'" % self.processor)
+            raise PlatformError("Expected ARM processor, found '%r'" % self.processor)
 
         if loop is None:
             self._loop = asyncio.get_event_loop()
