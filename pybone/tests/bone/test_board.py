@@ -1,10 +1,8 @@
-import os
 import unittest
-
 from unittest.mock import MagicMock
+
 from pybone.bone import Platform
-from pybone.board import *
-from pybone import pin_desc
+from pybone.bone.board import *
 
 
 class ParsePinMuxTestFunction(unittest.TestCase):

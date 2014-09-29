@@ -19,8 +19,8 @@ import asyncio
 import logging
 from enum import Enum
 
-from pybone.pin_desc import BBB_P8_DEF, BBB_P9_DEF
-from pybone.bone.pin import Pin
+from .pin_desc import BBB_P8_DEF, BBB_P9_DEF
+from .pin import Pin
 
 
 LOGGER = logging.getLogger(__name__)

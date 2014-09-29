@@ -9,11 +9,11 @@ from pybone.bone.pin import RegSlewEnum, RegPullEnum, RegPullTypeEnum
 
 
 class Linux38PlatformTest(unittest.TestCase):
-    _TEST_BOARD_NAME_FILE = os.path.join(os.path.dirname(os.path.realpath(__file__)), "resources/board-name")
-    _TEST_REVISION_FILE = os.path.join(os.path.dirname(os.path.realpath(__file__)), "resources/revision")
-    _TEST_SERIAL_NUMBER_FILE = os.path.join(os.path.dirname(os.path.realpath(__file__)), "resources/serial-number")
-    _TEST_PINS_FILE = os.path.join(os.path.dirname(os.path.realpath(__file__)), "resources/pins")
-    _TEST_PINMUX_FILE = os.path.join(os.path.dirname(os.path.realpath(__file__)), "resources/pinmux-pins")
+    _TEST_BOARD_NAME_FILE = os.path.join(os.path.dirname(os.path.realpath(__file__)), "../resources/board-name")
+    _TEST_REVISION_FILE = os.path.join(os.path.dirname(os.path.realpath(__file__)), "../resources/revision")
+    _TEST_SERIAL_NUMBER_FILE = os.path.join(os.path.dirname(os.path.realpath(__file__)), "../resources/serial-number")
+    _TEST_PINS_FILE = os.path.join(os.path.dirname(os.path.realpath(__file__)), "../resources/pins")
+    _TEST_PINMUX_FILE = os.path.join(os.path.dirname(os.path.realpath(__file__)), "../resources/pinmux-pins")
 
     def test_get_board_name(self):
         self.assertEquals('BeagleBone', get_board_name('A335BONE'))
@@ -54,7 +54,7 @@ class Linux38PlatformTest(unittest.TestCase):
     @patch('pybone.bone.platform.platform')
     @patch.object(Linux38Platform, '_BOARD_NAME_FILE', _TEST_BOARD_NAME_FILE)
     @patch.object(Linux38Platform, '_REVISION_FILE', _TEST_REVISION_FILE)
-    @patch.object(Linux38Platform, '_SERIAL_NUMBER_FILE',_TEST_SERIAL_NUMBER_FILE)
+    @patch.object(Linux38Platform, '_SERIAL_NUMBER_FILE', _TEST_SERIAL_NUMBER_FILE)
     @patch.object(Linux38Platform, '_PINS_FILE', _TEST_PINS_FILE)
     @patch.object(Linux38Platform, '_PINMUX_FILE', _TEST_PINMUX_FILE)
     def test_platform_read_board_info(self, mock_platform):

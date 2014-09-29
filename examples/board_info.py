@@ -1,5 +1,5 @@
 from pybone.bone import detect_platform
-from pybone.board import Board
+from bone.board import Board
 
 pf = detect_platform()
 b = Board(pf)
