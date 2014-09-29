@@ -38,36 +38,44 @@ def get_board_name(board_id):
 
 @asyncio.coroutine
 def read_board_name(board_file):
-    LOGGER.debug("BEGIN read_board_name")
     file_content = yield from filesystem.read_async(board_file)
-    board_id = file_content[0].strip()
+    try:
+        board_id = file_content[0].strip()
+    except:
+        msg = "Unexpected content in board_file %s" % board_file
+        LOGGER.warning(msg)
+        raise PlatformError(msg)
     board_name = get_board_name(board_id)
     if board_name is None:
-        LOGGER.warning("Unexpected board id '%s", board_id)
-    LOGGER.debug("END read_board_name")
+        msg = "Unexpected board id '%s" % board_id
+        LOGGER.warning(msg)
+        raise PlatformError(msg)
     return board_name
 
 
 @asyncio.coroutine
 def read_board_revision(revision_file):
-    LOGGER.debug("BEGIN read_board_revision")
     file_content = yield from filesystem.read_async(revision_file)
-    if file_content is None:
-        return None
-    else:
-        LOGGER.debug("END read_board_revision")
-        return file_content[0].strip()
+    try:
+        board_revision = file_content[0].strip()
+        return board_revision
+    except:
+        msg = "Unexpected content in revision_file %s" % revision_file
+        LOGGER.warning(msg)
+        raise PlatformError(msg)
 
 
 @asyncio.coroutine
 def read_board_serial_number(serial_number_file):
     LOGGER.debug("BEGIN read_board_serial_number")
     file_content = yield from filesystem.read_async(serial_number_file)
-    if file_content is None:
-        return None
-    else:
-        LOGGER.debug("END read_board_serial_number")
-        return file_content[0].strip()
+    try:
+        serial_number = file_content[0].strip()
+        return  serial_number
+    except:
+        msg = "Unexpected content in serial_number_file %s" % serial_number_file
+        LOGGER.warning(msg)
+        raise PlatformError(msg)
 
 
 class Linux38Platform(Platform):
@@ -119,7 +127,9 @@ class Linux38Platform(Platform):
         try:
             (board_name, board_revision, board_serial_number) = \
                 self._loop.run_until_complete(asyncio.gather(t1, t2, t3))
-        except Exception:
+        except PlatformError as pe:
+            raise pe
+        except:
             raise PlatformError("Error while reading board informations")
         return board_name, board_revision, board_serial_number
 

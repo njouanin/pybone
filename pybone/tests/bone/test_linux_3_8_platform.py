@@ -57,7 +57,7 @@ class Linux38PlatformTest(unittest.TestCase):
     @patch.object(Linux38Platform, '_SERIAL_NUMBER_FILE', _TEST_SERIAL_NUMBER_FILE)
     @patch.object(Linux38Platform, '_PINS_FILE', _TEST_PINS_FILE)
     @patch.object(Linux38Platform, '_PINMUX_FILE', _TEST_PINMUX_FILE)
-    def test_platform_read_board_info(self, mock_platform):
+    def test_init_platform_files(self, mock_platform):
         mock_platform.system = MagicMock(return_value='Linux')
         mock_platform.release = MagicMock(return_value='3.8')
         mock_platform.processor = MagicMock(return_value='arm')
@@ -67,6 +67,36 @@ class Linux38PlatformTest(unittest.TestCase):
         self.assertEquals(pf.serial_number_file, Linux38PlatformTest._TEST_SERIAL_NUMBER_FILE)
         self.assertEquals(pf.pins_file, Linux38PlatformTest._TEST_PINS_FILE)
         self.assertEquals(pf.pinmux_pins_file, Linux38PlatformTest._TEST_PINMUX_FILE)
+
+    @patch('pybone.bone.platform.platform')
+    @patch.object(Linux38Platform, '_BOARD_NAME_FILE', _TEST_BOARD_NAME_FILE)
+    @patch.object(Linux38Platform, '_REVISION_FILE', _TEST_REVISION_FILE)
+    @patch.object(Linux38Platform, '_SERIAL_NUMBER_FILE', _TEST_SERIAL_NUMBER_FILE)
+    @patch.object(Linux38Platform, '_PINS_FILE', _TEST_PINS_FILE)
+    @patch.object(Linux38Platform, '_PINMUX_FILE', _TEST_PINMUX_FILE)
+    def test_platform_read_board_info(self, mock_platform):
+        mock_platform.system = MagicMock(return_value='Linux')
+        mock_platform.release = MagicMock(return_value='3.8')
+        mock_platform.processor = MagicMock(return_value='arm')
+        pf = Linux38Platform()
+        (board_name, board_revision, board_serial_number) = pf.read_board_info()
+        self.assertEquals(board_name, 'BeagleBone Black')
+        self.assertEquals(board_revision, '0A6A')
+        self.assertEquals(board_serial_number, '0414BBBK2885')
+
+    @patch('pybone.bone.platform.platform')
+    @patch.object(Linux38Platform, '_BOARD_NAME_FILE', 'FAIL')
+    @patch.object(Linux38Platform, '_REVISION_FILE', _TEST_REVISION_FILE)
+    @patch.object(Linux38Platform, '_SERIAL_NUMBER_FILE', _TEST_SERIAL_NUMBER_FILE)
+    @patch.object(Linux38Platform, '_PINS_FILE', _TEST_PINS_FILE)
+    @patch.object(Linux38Platform, '_PINMUX_FILE', _TEST_PINMUX_FILE)
+    def test_platform_read_board_info_fails(self, mock_platform):
+        mock_platform.system = MagicMock(return_value='Linux')
+        mock_platform.release = MagicMock(return_value='3.8')
+        mock_platform.processor = MagicMock(return_value='arm')
+        pf = Linux38Platform()
+        with self.assertRaises(PlatformError):
+            pf.read_board_info()
 
     def test_parse_pins_line(self):
         line = "pin 0 (44e10800) 00000031 pinctrl-single"
