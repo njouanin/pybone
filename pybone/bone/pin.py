@@ -43,7 +43,7 @@ class Pin(object):
         self.reset_mode = definition['reset_mode']
         self.gpio_chip = definition['gpio_chip']
         self.gpio_number = definition['gpio_number']
-        #Pin dynamic attributes
+        #Pin runtime attributes
         self.register_mode = None
         self.register_slew = None
         self.register_receive = None
