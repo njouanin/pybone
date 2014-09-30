@@ -19,8 +19,6 @@ import asyncio
 import logging
 import glob
 
-_loop = asyncio.get_event_loop()
-
 LOGGER = logging.getLogger(__name__)
 
 
@@ -41,19 +39,27 @@ def long_read_file(file):
 
 
 @asyncio.coroutine
-def read_async(file):
+def read_async(file, loop=None):
     """
     File reading coroutine
     """
+    if loop is None:
+        _loop = asyncio.get_event_loop()
+    else:
+        _loop = loop
     lines = yield from _loop.run_in_executor(None, long_read_file, file)
     return lines
 
 
 @asyncio.coroutine
-def find_first_file(pattern):
+def find_first_file(pattern, loop=None):
     """
     Find first file matching a file pattern
     """
+    if loop is None:
+        _loop = asyncio.get_event_loop()
+    else:
+        _loop = loop
     it = yield from _loop.run_in_executor(None, glob.iglob, pattern)
     try:
         return next(it)

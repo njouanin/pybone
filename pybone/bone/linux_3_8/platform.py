@@ -135,7 +135,7 @@ class Linux38Platform(Platform):
 
     @asyncio.coroutine
     def read_pins_file(self):
-        file_content = yield from filesystem.read_async(self.pins_file)
+        file_content = yield from filesystem.read_async(self.pins_file, self._loop)
         if file_content is not None:
             return map(parse_pins_line, file_content[1:])
         else:
@@ -143,7 +143,7 @@ class Linux38Platform(Platform):
 
     @asyncio.coroutine
     def read_pinmux_pins(self):
-        file_content = yield from filesystem.read_async(self.pinmux_pins_file)
+        file_content = yield from filesystem.read_async(self.pinmux_pins_file, self._loop)
         if file_content is not None:
             return map(parse_pinmux_pins_file, file_content[2:])
         else:
