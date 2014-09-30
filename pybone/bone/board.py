@@ -34,12 +34,16 @@ class Header(Enum):
 
 class Board(object):
 
-    def __init__(self, run_platform):
-        self.platform = run_platform
-        (self.name, self.revision, self.serial_number) = self.platform.read_board_info()
+    def __init__(self, runtime_platform, loop=None):
+        self.platform = runtime_platform
+        if loop is None:
+            self._loop = asyncio.get_event_loop()
+        else:
+            self._loop = loop
+        (self.name, self.revision, self.serial_number) = self.platform.read_board_info(loop)
         self.pins = [pin for pin in self._load_pins(Header.p8)]
         self.pins += [pin for pin in self._load_pins(Header.p9)]
-        self._init_from_pinctrl()
+        self.update_pins_runtime_attributes()
 
     def _load_pins(self, header):
         """
@@ -103,11 +107,13 @@ class Board(object):
             LOGGER.debug("No pin matching args header='%s', driver_pin='%s', address='0x%x'" % (header, driver_pin, address))
             return None
 
-    def _init_from_pinctrl(self, loop=None):
+    def update_pins_runtime_attributes(self, loop=None):
         """
-        Update bord pins configuration from pinctrl files informations
+        Update bord pins runtime configuration from pinctrl files informations
         :return:
         """
+        import itertools
+
         if loop is None:
             self._loop = asyncio.get_event_loop()
         else:
@@ -116,29 +122,18 @@ class Board(object):
         (pins_array, pinsmux_array) = self._loop.run_until_complete(
             asyncio.gather(self.platform.read_pins_file(),
                            self.platform.read_pinmux_pins()))
-        if pins_array is None:
-            LOGGER.warn("Platform didn't provide any pins")
+
+        if pins_array is None and pinsmux_array is None:
+            LOGGER.warn("Platform didn't provide pins runtime informations")
         else:
-            for pins_line in pins_array:
-                if pins_line is not None:
+            for attributes in itertools.chain(pins_array, pinsmux_array):
+                if attributes is not None:
                     #look for pin matching the driver pin
-                    pin = self.get_pin(address=pins_line['address'])
+                    pin = self.get_pin(address=attributes['address'])
                     if pin is not None:
-                        pin.update_from_pins(pins_line)
+                        pin.update_runtime(attributes)
                     else:
                         LOGGER.debug("No pin definition matching address '0x%x' from 'pins' file was not found" % pins_line['address'])
-
-        if pinsmux_array is None:
-            LOGGER.warn("Platform didn't provide any pinsmux")
-        else:
-            for pinmux_pins_line in pinsmux_array:
-                #look for pin matching the driver pin
-                if pinmux_pins_line is not None:
-                    pin = self.get_pin(address=pinmux_pins_line['address'])
-                    if pin is not None:
-                        pin.update_from_pinmux_pins(pinmux_pins_line)
-                    else:
-                        LOGGER.debug("No pin definition matching address '0x%x' from 'pinmux-pins' was not found" % pinmux_pins_line['address'])
 
     def __repr__(self):
         return "Board(name=%r,revision=%r,serial_number=%r)" % \

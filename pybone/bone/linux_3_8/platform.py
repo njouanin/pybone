@@ -139,7 +139,7 @@ class Linux38Platform(Platform):
         if file_content is not None:
             return map(parse_pins_line, file_content[1:])
         else:
-            return None
+            raise PlatformError("Couldn't read pins file " % self.pins_file)
 
     @asyncio.coroutine
     def read_pinmux_pins(self):
@@ -147,4 +147,4 @@ class Linux38Platform(Platform):
         if file_content is not None:
             return map(parse_pinmux_pins_file, file_content[2:])
         else:
-            return None
+            raise PlatformError("Couldn't read pinmux file " % self.pinmux_pins_file)
